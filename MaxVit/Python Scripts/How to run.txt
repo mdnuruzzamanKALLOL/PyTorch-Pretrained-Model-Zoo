@@ -1,0 +1,25 @@
+How to Run — MaxViT Python Scripts
+=====================================
+
+1. Prepare dataset in ImageFolder format:
+   data/
+     train/  class1/  class2/ ...
+     val/    class1/  class2/ ...
+
+2. Edit NUM_CLASSES and DATA_DIR in train.py.
+
+3. Train the model:
+   python train.py
+
+4. Run inference:
+   python inference.py your_image.jpg
+
+Notes:
+  - Input must be divisible by (window_size * 2^num_stages).
+    For Tiny (ws=8, 4 stages with stride-2 stem): 224×224 works fine.
+  - MaxViT is memory-intensive. Reduce BATCH_SIZE if you hit OOM.
+
+Files:
+  maxvit.py    — Full architecture: MBConv + WindowAttention + GridAttention
+  train.py     — Training with CosineAnnealingLR
+  inference.py — Top-K prediction with visualization

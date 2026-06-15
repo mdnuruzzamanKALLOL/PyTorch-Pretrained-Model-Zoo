@@ -1,0 +1,82 @@
+RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=RegNet-X-3.2GF — Python Scripts
+=
+
+Files
+-----
+  regnet_x_3_2gf.py   — SE + XBlock + RegNet + all factory functions
+  train.py      — Adam + StepLR training loop
+  inference.py  — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves regnet_x_3_2gf_best.pth
+  3. python inference.py your_image.jpg
+
+Config
+------
+  Series        : RegNet X
+  depths        : [2, 6, 15, 2]
+  widths        : [96, 192, 432, 1008]
+  group_widths  : [48, 48, 48, 48]
+  FC in_features: 1008
+  Parameters    : ~15.3M
+  Batch size    : 32
+  Epochs        : 20
+  Optimizer     : Adam (lr=0.001)
+  Scheduler     : StepLR (step_size=7, gamma=0.1)
+  Input size    : 224x224

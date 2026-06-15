@@ -1,0 +1,19 @@
+How to Run — ResNet-18 Using Weight File
+========================================
+
+1. load_pretrained.py
+   Loads ImageNet-pretrained ResNet-18; replaces model.fc.
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes all backbone layers; trains only model.fc.
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Dual LR: backbone=1e-5, fc=1e-3 (AdamW + CosineAnnealing).
+   python fine_tuning.py
+
+Notes:
+  - Pretrained weights download automatically.
+  - Classifier: model.fc — Linear(512, num_classes).
+  - in_features = 512.

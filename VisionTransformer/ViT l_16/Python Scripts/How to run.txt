@@ -1,0 +1,89 @@
+ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=ViT-L/16 — Python Scripts
+=
+
+Files
+-----
+  vit_l_16.py     — model architecture (PatchEmbedding, MHSA, MLP,
+                      TransformerBlock, VisionTransformer)
+  train.py          — full training loop (AdamW + CosineAnnealingLR)
+  inference.py      — top-K prediction on a single image
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Data Layout
+-----------
+  data/
+    train/<class_name>/image.jpg ...
+    val/<class_name>/image.jpg ...
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py to match your dataset
+  2. python train.py
+     -> saves vit_l_16_best.pth
+  3. python inference.py your_image.jpg
+
+Training config
+---------------
+  Batch size      : 8
+  Epochs          : 20
+  Optimizer       : AdamW (lr=1e-4, weight_decay=0.01)
+  Scheduler       : CosineAnnealingLR (T_max=20)
+  Loss            : CrossEntropyLoss
+  Input size      : 224x224
+  Patch size      : 16x16
+  Embed dim       : 1024
+  Depth           : 24 transformer blocks
+  Num heads       : 16
+  Sequence length : 197 (inc. CLS token)

@@ -1,0 +1,20 @@
+How to Run — ResNet-34 Python Scripts
+=====================================
+
+1. Prepare dataset in ImageFolder format:
+   data/
+     train/  class1/  class2/ ...
+     val/    class1/  class2/ ...
+
+2. Edit NUM_CLASSES and DATA_DIR in train.py.
+
+3. Train the model:
+   python train.py
+
+4. Run inference:
+   python inference.py your_image.jpg
+
+Files:
+  resnet34.py   — ResNet-34 architecture (BasicBlock, layers=[3, 4, 6, 3])
+  train.py     — Training with StepLR (step=7, gamma=0.1)
+  inference.py — Top-K prediction with visualization

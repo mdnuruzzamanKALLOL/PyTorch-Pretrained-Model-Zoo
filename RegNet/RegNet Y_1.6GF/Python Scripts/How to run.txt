@@ -1,0 +1,82 @@
+RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=RegNet-Y-1.6GF — Python Scripts
+=
+
+Files
+-----
+  regnet_y_1_6gf.py   — SE + XBlock + RegNet + all factory functions
+  train.py      — Adam + StepLR training loop
+  inference.py  — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves regnet_y_1_6gf_best.pth
+  3. python inference.py your_image.jpg
+
+Config
+------
+  Series        : RegNet Y  (+ Squeeze-and-Excitation, se_ratio=0.25)
+  depths        : [2, 6, 17, 2]
+  widths        : [48, 120, 336, 888]
+  group_widths  : [24, 24, 24, 24]
+  FC in_features: 888
+  Parameters    : ~11.2M
+  Batch size    : 32
+  Epochs        : 20
+  Optimizer     : Adam (lr=0.001)
+  Scheduler     : StepLR (step_size=7, gamma=0.1)
+  Input size    : 224x224

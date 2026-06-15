@@ -1,0 +1,82 @@
+RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=RegNet-X-8GF — Python Scripts
+=
+
+Files
+-----
+  regnet_x_8gf.py   — SE + XBlock + RegNet + all factory functions
+  train.py      — Adam + StepLR training loop
+  inference.py  — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves regnet_x_8gf_best.pth
+  3. python inference.py your_image.jpg
+
+Config
+------
+  Series        : RegNet X
+  depths        : [2, 5, 15, 1]
+  widths        : [80, 240, 720, 1920]
+  group_widths  : [120, 120, 120, 120]
+  FC in_features: 1920
+  Parameters    : ~39.6M
+  Batch size    : 16
+  Epochs        : 20
+  Optimizer     : Adam (lr=0.001)
+  Scheduler     : StepLR (step_size=7, gamma=0.1)
+  Input size    : 224x224

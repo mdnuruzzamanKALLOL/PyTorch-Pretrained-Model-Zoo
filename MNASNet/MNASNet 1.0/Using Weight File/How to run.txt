@@ -1,0 +1,20 @@
+How to Run — MNASNet 1.0 Using Weight File
+==========================================
+
+1. load_pretrained.py
+   Loads torchvision MNASNet 1.0; replaces classifier[1].
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes backbone; trains only classifier[1].
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Dual LR: backbone=1e-5, classifier[1]=1e-3 (AdamW + CosineAnnealing).
+   python fine_tuning.py
+
+Notes:
+  - Classifier structure: Sequential([Dropout, Linear(1280->classes)]).
+    Replace classifier[1] for transfer learning.
+  - in_features = 1280 for all MNASNet alpha variants.
+  - Pretrained ImageNet weights are downloaded automatically on first run.

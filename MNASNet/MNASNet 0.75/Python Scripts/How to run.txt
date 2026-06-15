@@ -1,0 +1,20 @@
+How to Run — MNASNet 0.75 Python Scripts
+========================================
+
+1. Prepare dataset in ImageFolder format:
+   data/
+     train/  class1/  class2/ ...
+     val/    class1/  class2/ ...
+
+2. Edit NUM_CLASSES and DATA_DIR in train.py.
+
+3. Train the model:
+   python train.py
+
+4. Run inference:
+   python inference.py your_image.jpg
+
+Files:
+  mnasnet_0_75.py  — MNASNet architecture with alpha=0.75
+  train.py    — Training loop with CosineAnnealingLR
+  inference.py — Top-K prediction with visualization

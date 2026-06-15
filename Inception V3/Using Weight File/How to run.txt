@@ -1,0 +1,20 @@
+How to Run — Inception V3 Using Weight File
+=============================================
+
+1. load_pretrained.py
+   Loads ImageNet-pretrained Inception V3, replaces final FC layer.
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes all backbone layers; trains only fc and AuxLogits.fc.
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Dual LR: backbone=1e-5, head=1e-3 (AdamW + CosineAnnealing).
+   python fine_tuning.py
+
+Notes:
+  - Torchvision's Inception V3 returns InceptionOutputs(logits, aux_logits) during training.
+    Use out.logits for the main output and out.aux_logits for the auxiliary output.
+  - Pretrained weights download automatically on first run (~100 MB).
+  - AuxLogits.fc must be replaced alongside model.fc for NUM_CLASSES != 1000.

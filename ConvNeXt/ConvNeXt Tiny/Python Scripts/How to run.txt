@@ -1,0 +1,44 @@
+====================================================
+  ConvNeXt-Tiny — Python Scripts: How to Run
+====================================================
+Config: depths=(3,3,9,3)  dims=(96,192,384,768)  ~28M params
+
+REQUIREMENTS
+------------
+    pip install torch torchvision pillow
+
+----------------------------------------------------
+1. convnext_tiny.py  —  Model + Parameter Count
+----------------------------------------------------
+    python convnext_tiny.py
+
+Output: architecture, input/output shapes, param count
+
+----------------------------------------------------
+2. train.py  —  Training
+----------------------------------------------------
+Dataset structure:
+    data/train/class_1/ ... data/val/class_1/ ...
+
+Edit config in train.py:
+    NUM_CLASSES = 10
+    BATCH_SIZE  = 32
+    EPOCHS      = 10
+    DATA_DIR    = "./data"
+
+Run:
+    python train.py
+
+Saves best model as: convnext_tiny_best.pth
+
+----------------------------------------------------
+3. inference.py  —  Predict on Image
+----------------------------------------------------
+Requires: convnext_tiny_best.pth
+
+    python inference.py image.jpg
+    python inference.py image.jpg class_names.json
+
+====================================================
+NOTE: GPU used automatically if CUDA is available
+====================================================

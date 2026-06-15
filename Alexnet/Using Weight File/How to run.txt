@@ -1,0 +1,101 @@
+====================================================
+  AlexNet — Using Weight File: How to Run
+====================================================
+
+REQUIREMENTS
+------------
+    pip install torch torchvision pillow
+
+
+====================================================
+1. load_pretrained.py  —  ImageNet Pretrained Inference
+====================================================
+Uses official torchvision AlexNet weights (ImageNet).
+Downloads weights automatically on first run (~240 MB).
+
+Usage:
+    python load_pretrained.py <image_path>
+
+Example:
+    python load_pretrained.py dog.jpg
+
+Output:
+  - Top-5 predicted ImageNet class names with confidence
+
+Note:
+  - Input is auto-resized to 224x224
+  - No training needed — uses ready-made ImageNet weights
+
+
+====================================================
+2. feature_extraction.py  —  Transfer Learning (Frozen Backbone)
+====================================================
+Loads pretrained weights, FREEZES all conv layers,
+trains only the final classifier layer on your dataset.
+
+Best for: small datasets (< 5000 images per class)
+
+Step 1: Prepare dataset:
+
+    data/
+    ├── train/
+    │   ├── class_1/
+    │   └── class_2/
+    └── val/
+        ├── class_1/
+        └── class_2/
+
+Step 2: Update config in feature_extraction.py:
+
+    NUM_CLASSES = 10       # your number of classes
+    DATA_DIR    = "./data"
+
+Step 3: Run:
+
+    python feature_extraction.py
+
+Saves best model as: alexnet_feature_extract.pth
+
+
+====================================================
+3. fine_tuning.py  —  Fine-Tuning (All Layers Unfrozen)
+====================================================
+Loads pretrained weights, UNFREEZES all layers,
+trains with a small lr on backbone + larger lr on head.
+
+Best for: medium/large datasets or domain-specific images
+
+Step 1: Same dataset structure as above
+
+Step 2: Update config in fine_tuning.py:
+
+    NUM_CLASSES   = 10
+    DATA_DIR      = "./data"
+    LR_BACKBONE   = 0.0001   # keep small to preserve features
+    LR_CLASSIFIER = 0.001
+
+Step 3: Run:
+
+    python fine_tuning.py
+
+Saves best model as: alexnet_finetuned.pth
+
+
+====================================================
+COMPARISON: Which script to use?
+====================================================
+
+  Script                | Layers Trained     | Use When
+  ----------------------|--------------------|---------------------------
+  load_pretrained.py    | None (inference)   | Quick test on any image
+  feature_extraction.py | Last FC only       | Small dataset
+  fine_tuning.py        | All layers         | Medium/large dataset
+
+====================================================
+NOTE
+====================================================
+- GPU is used automatically if CUDA is available
+- To force CPU: set DEVICE = torch.device("cpu")
+- Weights download once and are cached by torchvision
+
+====================================================

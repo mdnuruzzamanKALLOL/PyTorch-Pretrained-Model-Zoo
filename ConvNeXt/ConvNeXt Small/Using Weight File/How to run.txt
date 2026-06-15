@@ -1,0 +1,32 @@
+====================================================
+  ConvNeXt-Small — Using Weight File: How to Run
+====================================================
+~50M params  |  depths=(3,3,27,3)  dims=(96,192,384,768)
+
+REQUIREMENTS:  pip install torch torchvision pillow
+
+----------------------------------------------------
+1. load_pretrained.py  —  ImageNet Inference
+----------------------------------------------------
+    python load_pretrained.py image.jpg
+
+Output: Top-5 ImageNet class predictions
+
+----------------------------------------------------
+2. feature_extraction.py  —  Frozen Backbone
+----------------------------------------------------
+    python feature_extraction.py
+
+Saves: convnext_small_feature_extract.pth
+
+----------------------------------------------------
+3. fine_tuning.py  —  All Layers Unfrozen
+----------------------------------------------------
+    python fine_tuning.py
+
+Saves: convnext_small_finetuned.pth
+
+----------------------------------------------------
+Dataset structure for scripts 2 & 3:
+    data/train/class_1/  data/val/class_1/ ...
+====================================================

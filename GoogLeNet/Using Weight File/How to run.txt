@@ -1,0 +1,21 @@
+How to Run — GoogLeNet Using Weight File
+==========================================
+
+1. load_pretrained.py
+   Loads ImageNet-pretrained GoogLeNet and replaces the final FC layer.
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes all layers except the FC head; trains only the head.
+   Edit DATA_DIR and NUM_CLASSES, then:
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Uses dual learning rates: backbone=1e-5, head=1e-3 (AdamW + CosineAnnealing).
+   Edit DATA_DIR and NUM_CLASSES, then:
+   python fine_tuning.py
+
+Notes:
+  - Pretrained weights download automatically on first run (~55 MB).
+  - Torchvision wraps GoogLeNet output as InceptionOutputs during training;
+    use out.logits or check isinstance(out, tuple) accordingly.

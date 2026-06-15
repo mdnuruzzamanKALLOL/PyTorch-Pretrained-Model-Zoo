@@ -1,0 +1,44 @@
+====================================================
+  ConvNeXt-Base — Python Scripts: How to Run
+====================================================
+Config: depths=(3,3,27,3)  dims=(128,256,512,1024)  ~89M params
+
+REQUIREMENTS
+------------
+    pip install torch torchvision pillow
+
+----------------------------------------------------
+1. convnext_base.py  —  Model + Parameter Count
+----------------------------------------------------
+    python convnext_base.py
+
+Output: architecture, input/output shapes, param count
+
+----------------------------------------------------
+2. train.py  —  Training
+----------------------------------------------------
+Dataset structure:
+    data/train/class_1/ ... data/val/class_1/ ...
+
+Edit config in train.py:
+    NUM_CLASSES = 10
+    BATCH_SIZE  = 16    # reduced for larger model
+    EPOCHS      = 10
+    DATA_DIR    = "./data"
+
+Run:
+    python train.py
+
+Saves best model as: convnext_base_best.pth
+
+----------------------------------------------------
+3. inference.py  —  Predict on Image
+----------------------------------------------------
+Requires: convnext_base_best.pth
+
+    python inference.py image.jpg
+    python inference.py image.jpg class_names.json
+
+====================================================
+NOTE: GPU strongly recommended for Base model (~89M)
+====================================================

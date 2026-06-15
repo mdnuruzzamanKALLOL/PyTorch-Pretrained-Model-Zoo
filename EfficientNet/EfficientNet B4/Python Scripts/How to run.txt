@@ -1,0 +1,52 @@
+EfficientNet-B4 — Python Scripts
+========================================
+
+FOLDER STRUCTURE
+----------------
+  efficientnet_b4.py   ← model architecture (from scratch)
+  train.py               ← training script
+  inference.py           ← single-image inference
+  How to run.txt         ← this file
+
+REQUIREMENTS
+------------
+  pip install torch torchvision scikit-learn pillow matplotlib
+
+DATASET FORMAT
+--------------
+  data/
+    train/
+      class_a/  image1.jpg  image2.jpg ...
+      class_b/  ...
+    val/
+      class_a/  ...
+      class_b/  ...
+
+TRAINING
+--------
+  python train.py
+
+  Key settings in train.py:
+    DATA_DIR    = './data'
+    NUM_CLASSES = 10         ← change to your number of classes
+    BATCH_SIZE  = 16
+    EPOCHS      = 30
+    LR          = 5e-4
+
+  Saves: efficientnet_b4_best.pth
+
+INFERENCE
+---------
+  python inference.py <image_path> [class_names.json] [weights.pth] [num_classes]
+
+  Examples:
+    python inference.py photo.jpg
+    python inference.py photo.jpg classes.json efficientnet_b4_best.pth 10
+
+  class_names.json format:
+    ["cat", "dog", "bird", ...]
+
+INPUT RESOLUTION
+----------------
+  EfficientNet-B4 expects 380×380 images.
+  The scripts resize to 412 then crop to 380×380 automatically.

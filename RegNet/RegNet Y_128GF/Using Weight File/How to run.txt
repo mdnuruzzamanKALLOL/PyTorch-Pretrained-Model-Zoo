@@ -1,0 +1,69 @@
+RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=RegNet-Y-128GF — Using Pretrained Weight Files
+=
+
+Files
+-----
+  load_pretrained.py    — load ImageNet weights, replace model.fc
+  feature_extraction.py — freeze backbone, train fc only
+  fine_tuning.py        — dual-LR AdamW (backbone=1e-5, fc=1e-3)
+
+  NOTE: Uses SWAG_LINEAR_V1 weights (224x224 compatible linear-probe weights)
+
+Head to replace
+---------------
+  model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
+  in_features = 7392
+
+Pretrained weights
+------------------
+  RegNet_Y_128GF_Weights.IMAGENET1K_SWAG_LINEAR_V1
+  Top-1 ImageNet : 83.4%

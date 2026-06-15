@@ -1,0 +1,79 @@
+import os, torch, torch.nn as nn, torch.optim as optim
+from torch.utils.data import DataLoader
+from torchvision import models, datasets, transforms
+
+# ── Config ────────────────────────────────────────────────────────────────────
+DATA_DIR    = "./data"
+NUM_CLASSES = 10
+BATCH_SIZE  = 16
+EPOCHS      = 15
+LR          = 1e-3
+SAVE_PATH   = "densenet161_feature_extract.pth"
+DEVICE      = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# ── Load pretrained model & freeze backbone ───────────────────────────────────
+model = models.densenet161(weights=models.DenseNet161_Weights.IMAGENET1K_V1)
+
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace the classifier head (Linear: 2208 → NUM_CLASSES)
+in_features = model.classifier.in_features
+model.classifier = nn.Linear(in_features, NUM_CLASSES)
+model = model.to(DEVICE)
+
+trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+total     = sum(p.numel() for p in model.parameters())
+print(f"Feature Extraction mode")
+print(f"  Trainable params : {trainable:,}  /  Total : {total:,}")
+print(f"  Classifier head  : Linear({in_features}, {NUM_CLASSES})\n")
+
+# ── Data ──────────────────────────────────────────────────────────────────────
+train_transforms = transforms.Compose([
+    transforms.Resize(256), transforms.RandomCrop(224),
+    transforms.RandomHorizontalFlip(), transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+])
+val_transforms = transforms.Compose([
+    transforms.Resize(256), transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+])
+train_loader = DataLoader(datasets.ImageFolder(os.path.join(DATA_DIR,"train"), transform=train_transforms), batch_size=BATCH_SIZE, shuffle=True,  num_workers=4)
+val_loader   = DataLoader(datasets.ImageFolder(os.path.join(DATA_DIR,"val"),   transform=val_transforms),   batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
+
+# ── Optimise only the new classifier head ────────────────────────────────────
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.classifier.parameters(), lr=LR)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
+
+# ── Training loop ─────────────────────────────────────────────────────────────
+def run_epoch(loader, train=True):
+    model.train() if train else model.eval()
+    tl, correct, total = 0.0, 0, 0
+    ctx = torch.enable_grad() if train else torch.no_grad()
+    with ctx:
+        for imgs, labels in loader:
+            imgs, labels = imgs.to(DEVICE), labels.to(DEVICE)
+            if train: optimizer.zero_grad()
+            out  = model(imgs); loss = criterion(out, labels)
+            if train: loss.backward(); optimizer.step()
+            tl      += loss.item() * imgs.size(0)
+            correct += out.max(1)[1].eq(labels).sum().item()
+            total   += labels.size(0)
+    return tl / total, 100.0 * correct / total
+
+best_val_acc = 0.0
+print(f"{'Epoch':<8}{'Train Loss':<12}{'Train Acc':<12}{'Val Loss':<12}{'Val Acc':<10}")
+print("-" * 54)
+for epoch in range(1, EPOCHS + 1):
+    trl, tra = run_epoch(train_loader, True)
+    vll, vla = run_epoch(val_loader,   False)
+    scheduler.step()
+    print(f"{epoch:<8}{trl:<12.4f}{tra:<12.2f}{vll:<12.4f}{vla:<10.2f}")
+    if vla > best_val_acc:
+        best_val_acc = vla
+        torch.save(model.state_dict(), SAVE_PATH)
+        print(f"  --> Saved  (val_acc={best_val_acc:.2f}%)")
+
+print(f"\nBest Val Acc : {best_val_acc:.2f}%  |  Saved : {SAVE_PATH}")

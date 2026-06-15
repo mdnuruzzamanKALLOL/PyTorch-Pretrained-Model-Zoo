@@ -1,0 +1,84 @@
+Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=Wide ResNet-101-2 — Python Scripts
+=
+
+Files
+-----
+  wide_resnet_101_2.py  — model architecture (wide Bottleneck + WideResNet)
+  train.py              — full training loop with StepLR scheduler
+  inference.py          — top-K prediction on a single image
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Data Layout
+-----------
+  data/
+    train/<class_name>/image.jpg ...
+    val/<class_name>/image.jpg ...
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py to match your dataset
+  2. python train.py
+     -> saves wide_resnet_101_2_best.pth
+  3. python inference.py your_image.jpg
+
+Training config
+---------------
+  Batch size : 8
+  Epochs     : 20
+  Optimizer  : Adam (lr=0.001)
+  Scheduler  : StepLR (step_size=7, gamma=0.1)
+  Loss       : CrossEntropyLoss
+  Input size : 224x224
+  Width mult : 2x (width_per_group=128)

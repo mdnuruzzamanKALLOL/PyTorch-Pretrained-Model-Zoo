@@ -1,0 +1,84 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader
+from torchvision import datasets, models, transforms
+
+DATA_DIR    = './data'
+BATCH_SIZE  = 16
+EPOCHS      = 20
+LR_BACKBONE = 1e-5
+LR_HEAD     = 1e-3
+NUM_CLASSES = 10
+DEVICE      = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+model = models.inception_v3(weights=models.Inception_V3_Weights.IMAGENET1K_V1)
+in_features        = model.fc.in_features
+model.fc           = nn.Linear(in_features, NUM_CLASSES)
+model.AuxLogits.fc = nn.Linear(768, NUM_CLASSES)
+model              = model.to(DEVICE)
+
+transform = transforms.Compose([
+    transforms.Resize((299, 299)),
+    transforms.RandomHorizontalFlip(),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+])
+val_transform = transforms.Compose([
+    transforms.Resize((299, 299)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+])
+
+train_dataset = datasets.ImageFolder(f'{DATA_DIR}/train', transform=transform)
+val_dataset   = datasets.ImageFolder(f'{DATA_DIR}/val',   transform=val_transform)
+train_loader  = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True,  num_workers=4)
+val_loader    = DataLoader(val_dataset,   batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
+
+head_names = {'fc', 'AuxLogits'}
+criterion  = nn.CrossEntropyLoss()
+optimizer  = optim.AdamW([
+    {'params': [p for n, p in model.named_parameters()
+                if not any(h in n for h in head_names)], 'lr': LR_BACKBONE},
+    {'params': list(model.fc.parameters()) + list(model.AuxLogits.parameters()),
+     'lr': LR_HEAD},
+])
+scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=EPOCHS)
+
+best_val_acc = 0.0
+for epoch in range(1, EPOCHS + 1):
+    model.train()
+    total_loss, correct, total = 0.0, 0, 0
+    for images, labels in train_loader:
+        images, labels = images.to(DEVICE), labels.to(DEVICE)
+        optimizer.zero_grad()
+        out = model(images)
+        outputs = out.logits if hasattr(out, 'logits') else out
+        loss = criterion(outputs, labels)
+        if hasattr(out, 'aux_logits') and out.aux_logits is not None:
+            loss = loss + 0.3 * criterion(out.aux_logits, labels)
+        loss.backward()
+        optimizer.step()
+        total_loss += loss.item() * images.size(0)
+        correct    += outputs.max(1)[1].eq(labels).sum().item()
+        total      += labels.size(0)
+    scheduler.step()
+
+    model.eval()
+    val_correct, val_total = 0, 0
+    with torch.no_grad():
+        for images, labels in val_loader:
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
+            out = model(images)
+            outputs = out.logits if hasattr(out, 'logits') else out
+            val_correct += outputs.max(1)[1].eq(labels).sum().item()
+            val_total   += labels.size(0)
+    val_acc = 100. * val_correct / val_total
+    print(f'Epoch {epoch:02d} | Loss: {total_loss/total:.4f} | Val Acc: {val_acc:.2f}%')
+    if val_acc > best_val_acc:
+        best_val_acc = val_acc
+        torch.save(model.state_dict(), 'inceptionv3_fine_tuned.pth')
+
+print(f'Best Val Acc: {best_val_acc:.2f}%')
+print('Saved: inceptionv3_fine_tuned.pth')

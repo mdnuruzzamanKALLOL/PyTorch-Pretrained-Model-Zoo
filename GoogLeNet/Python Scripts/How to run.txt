@@ -1,0 +1,20 @@
+How to Run — GoogLeNet Python Scripts
+======================================
+
+1. Prepare your dataset in ImageFolder format:
+   data/
+     train/  class1/  class2/ ...
+     val/    class1/  class2/ ...
+
+2. Edit NUM_CLASSES and DATA_DIR in train.py to match your dataset.
+
+3. Train the model:
+   python train.py
+
+4. Run inference on an image:
+   python inference.py your_image.jpg
+
+Files:
+  googlenet.py  — Model architecture (from scratch)
+  train.py      — Training loop with auxiliary loss
+  inference.py  — Single-image prediction with top-K bar chart

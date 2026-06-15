@@ -1,0 +1,20 @@
+How to Run — MobileNet V2 Python Scripts
+==========================================
+
+1. Prepare dataset in ImageFolder format:
+   data/
+     train/  class1/  class2/ ...
+     val/    class1/  class2/ ...
+
+2. Edit NUM_CLASSES and DATA_DIR in train.py.
+
+3. Train the model:
+   python train.py
+
+4. Run inference:
+   python inference.py your_image.jpg
+
+Files:
+  mobilenet_v2.py  — Inverted Residual + linear bottleneck architecture
+  train.py         — Training with CosineAnnealingLR
+  inference.py     — Top-K prediction with visualization

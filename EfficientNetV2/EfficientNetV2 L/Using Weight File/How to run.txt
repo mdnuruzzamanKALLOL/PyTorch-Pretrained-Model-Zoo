@@ -1,0 +1,49 @@
+EfficientNetV2-L — Using Weight File
+=============================================
+
+FOLDER STRUCTURE
+----------------
+  load_pretrained.py    ← load ImageNet weights, swap head
+  feature_extraction.py ← freeze backbone, train head only
+  fine_tuning.py        ← dual-LR fine-tune entire network
+  How to run.txt        ← this file
+
+REQUIREMENTS
+------------
+  pip install torch torchvision pillow
+
+CLASSIFIER HEAD
+---------------
+  model.classifier = nn.Sequential(
+      nn.Dropout(p=0.4, inplace=True),
+      nn.Linear(1280, NUM_CLASSES),   ← in_features = 1280
+  )
+
+  To replace:
+      in_features = model.classifier[1].in_features   # 1280
+      model.classifier[1] = nn.Linear(in_features, NUM_CLASSES)
+
+1. LOAD PRETRAINED (verify weights)
+------------------------------------
+  python load_pretrained.py
+
+2. FEATURE EXTRACTION (train head only, fast)
+----------------------------------------------
+  python feature_extraction.py
+
+  - Backbone frozen, only classifier trained
+  - Optimizer: Adam(lr=1e-3)
+  - Saves: efficientnetv2_l_fe.pth
+
+3. FINE-TUNING (train full network, best accuracy)
+---------------------------------------------------
+  python fine_tuning.py
+
+  - Backbone LR: 1e-5  |  Classifier LR: 1e-3
+  - Optimizer: AdamW + CosineAnnealingLR
+  - Saves: efficientnetv2_l_ft.pth
+
+WHEN TO USE WHICH
+-----------------
+  Feature Extraction → small dataset (<5k images) or limited compute
+  Fine-Tuning        → larger dataset, want best accuracy

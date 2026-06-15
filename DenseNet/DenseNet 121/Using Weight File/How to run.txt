@@ -1,0 +1,100 @@
+===================================================
+  DenseNet-121  |  Using Weight File — How to Run
+===================================================
+
+REQUIREMENTS
+------------
+  pip install torch torchvision pillow
+
+
+FILE OVERVIEW
+-------------
+  load_pretrained.py    — Load ImageNet weights & run smoke test
+  feature_extraction.py — Freeze backbone, train only new head
+  fine_tuning.py        — Unfreeze all layers with dual LR
+  How to run.txt        — This file
+
+
+1) LOAD PRETRAINED (ImageNet inference)
+-----------------------------------------
+  python load_pretrained.py
+
+  What it does:
+    • Downloads DenseNet-121 ImageNet weights via torchvision
+    • Prints parameter count and classifier info
+    • Runs a forward-pass smoke test
+    • Exposes predict_imagenet("image.jpg") helper
+
+  Classifier head: Linear(1024 → 1000)
+
+
+2) FEATURE EXTRACTION  (fast transfer learning)
+-------------------------------------------------
+  python feature_extraction.py
+
+  Strategy:
+    • All backbone layers are FROZEN (requires_grad = False)
+    • Only the new Linear(1024 → NUM_CLASSES) head is trained
+    • Optimizer : Adam(lr=1e-3) on classifier only
+    • Scheduler : StepLR(step_size=5, gamma=0.1)
+    • Epochs    : 15
+
+  Before running, edit feature_extraction.py:
+    DATA_DIR    = "path/to/your/data"
+    NUM_CLASSES = <number of classes>
+
+  Dataset layout (ImageFolder):
+    data/
+    ├── train/ ── class_A/ ── *.jpg
+    └── val/   ── class_A/ ── *.jpg
+
+  Output: densenet121_feature_extract.pth
+
+  When to use:
+    • Small dataset  (< 5 k images per class)
+    • Limited GPU memory
+    • Quick prototyping
+
+
+3) FINE-TUNING  (best accuracy)
+---------------------------------
+  python fine_tuning.py
+
+  Strategy:
+    • All layers unfrozen
+    • Dual learning rate via AdamW:
+        - Backbone      : lr = 1e-5  (gentle update)
+        - Classifier    : lr = 1e-3  (faster update)
+    • Scheduler : CosineAnnealingLR (T_max=20)
+    • Epochs    : 20
+
+  Before running, edit fine_tuning.py:
+    DATA_DIR    = "path/to/your/data"
+    NUM_CLASSES = <number of classes>
+
+  Output: densenet121_finetuned.pth
+
+  When to use:
+    • Larger dataset  (> 5 k images per class)
+    • Maximum accuracy required
+    • Sufficient GPU memory
+
+
+FEATURE EXTRACTION vs FINE-TUNING
+-----------------------------------
+  | Aspect            | Feature Extraction | Fine-Tuning     |
+  |-------------------|--------------------|-----------------|
+  | Frozen layers     | All backbone       | None            |
+  | Trainable params  | ~1 K               | ~7.9 M          |
+  | Training speed    | Very fast          | Moderate        |
+  | Best for          | Small dataset      | Large dataset   |
+  | Risk of overfitting| Low               | Moderate        |
+
+
+CLASSIFIER HEAD DETAILS  (DenseNet-121)
+-----------------------------------------
+  Backbone output channels : 1024  (after 4 dense blocks)
+  New head                  : nn.Linear(1024, NUM_CLASSES)
+  Access in torchvision     : model.classifier
+
+===================================================

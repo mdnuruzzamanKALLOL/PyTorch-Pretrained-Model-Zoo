@@ -1,0 +1,86 @@
+Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=Swin-S — Python Scripts
+=
+
+Files
+-----
+  swin_s.py     — full model architecture from scratch
+  train.py        — training loop (AdamW + CosineAnnealingLR)
+  inference.py    — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Data Layout
+-----------
+  data/
+    train/<class_name>/image.jpg ...
+    val/<class_name>/image.jpg ...
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves swin_s_best.pth
+  3. python inference.py your_image.jpg
+
+Training config
+---------------
+  Input size  : 224x224
+  Batch size  : 16
+  Epochs      : 20
+  Optimizer   : AdamW (lr=1e-4, weight_decay=0.01)
+  Scheduler   : CosineAnnealingLR (T_max=20)
+  Loss        : CrossEntropyLoss
+  embed_dim   : 96
+  depths      : [2, 2, 18, 2]
+  window_size : 7

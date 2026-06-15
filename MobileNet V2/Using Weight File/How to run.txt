@@ -1,0 +1,20 @@
+How to Run — MobileNet V2 Using Weight File
+=============================================
+
+1. load_pretrained.py
+   Loads ImageNet-pretrained MobileNet V2; replaces classifier[1].
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes backbone; trains only classifier[1].
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Dual LR: backbone=1e-5, head=1e-3 (AdamW + CosineAnnealing).
+   python fine_tuning.py
+
+Notes:
+  - Pretrained weights download automatically (~14 MB).
+  - Classifier: Sequential([Dropout(0.2), Linear(1280, num_classes)]).
+    Replace classifier[1] (the Linear layer).
+  - in_features = 1280.

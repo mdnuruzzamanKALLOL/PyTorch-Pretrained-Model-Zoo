@@ -1,0 +1,68 @@
+RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=RegNet-X-3.2GF — Using Pretrained Weight Files
+=
+
+Files
+-----
+  load_pretrained.py    — load ImageNet weights, replace model.fc
+  feature_extraction.py — freeze backbone, train fc only
+  fine_tuning.py        — dual-LR AdamW (backbone=1e-5, fc=1e-3)
+
+
+Head to replace
+---------------
+  model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
+  in_features = 1008
+
+Pretrained weights
+------------------
+  RegNet_X_3_2GF_Weights.IMAGENET1K_V1
+  Top-1 ImageNet : 78.4%

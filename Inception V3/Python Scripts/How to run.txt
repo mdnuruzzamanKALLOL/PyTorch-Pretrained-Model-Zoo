@@ -1,0 +1,20 @@
+How to Run — Inception V3 Python Scripts
+==========================================
+
+1. Prepare dataset in ImageFolder format:
+   data/
+     train/  class1/  class2/ ...
+     val/    class1/  class2/ ...
+
+2. Edit NUM_CLASSES and DATA_DIR in train.py.
+
+3. Train the model:
+   python train.py
+
+4. Run inference:
+   python inference.py your_image.jpg
+
+Files:
+  inceptionv3.py  — Full architecture from scratch (ConvBnRelu + InceptionA/B/C/D/E)
+  train.py        — Training with auxiliary loss (main + 0.3*aux)
+  inference.py    — Top-K prediction with visualization

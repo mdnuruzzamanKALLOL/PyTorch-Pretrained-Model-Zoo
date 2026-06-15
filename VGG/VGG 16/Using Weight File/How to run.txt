@@ -1,0 +1,85 @@
+VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=VGG-16 — Using Pretrained Weight Files
+=
+
+Files
+-----
+  load_pretrained.py    — load ImageNet weights, replace classifier[6]
+  feature_extraction.py — freeze backbone, train only classifier[6]
+  fine_tuning.py        — dual-LR AdamW (backbone=1e-5, head=1e-3)
+
+Requirements
+------------
+  pip install torch torchvision
+
+Data Layout
+-----------
+  data/
+    train/<class_name>/image.jpg ...
+    val/<class_name>/image.jpg ...
+
+Steps
+-----
+  1. Set NUM_CLASSES to match your dataset in each script
+  2. python load_pretrained.py       <- verify weights load
+  3. python feature_extraction.py    <- fast, good baseline
+     OR
+     python fine_tuning.py           <- higher accuracy
+
+Pretrained weights used
+-----------------------
+  VGG16_Weights.IMAGENET1K_V1
+  Top-1 ImageNet accuracy : 71.6%
+
+Classifier head to replace
+--------------------------
+  model.classifier[6] = nn.Linear(4096, NUM_CLASSES)
+  in_features = 4096  (same for all VGG variants)

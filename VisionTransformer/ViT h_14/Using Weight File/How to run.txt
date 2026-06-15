@@ -1,0 +1,90 @@
+ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=ViT-H/14 — Using Pretrained Weight Files
+=
+
+Files
+-----
+  load_pretrained.py    — load ImageNet weights, replace heads.head
+  feature_extraction.py — freeze backbone, train only heads.head
+  fine_tuning.py        — dual-LR AdamW (backbone=1e-5, head=1e-3)
+
+Requirements
+------------
+  pip install torch torchvision
+
+Data Layout
+-----------
+  data/
+    train/<class_name>/image.jpg ...
+    val/<class_name>/image.jpg ...
+
+Steps
+-----
+  1. Set NUM_CLASSES to match your dataset in each script
+  2. python load_pretrained.py       <- verify weights load
+  3. python feature_extraction.py    <- fast, good baseline
+     OR
+     python fine_tuning.py           <- higher accuracy
+
+Pretrained weights used
+-----------------------
+  ViT_H_14_Weights.IMAGENET1K_SWAG_LINEAR_V1
+  Top-1 ImageNet accuracy : 85.7%
+
+Note on ViT-H/14 weights
+------------------------
+  IMAGENET1K_SWAG_LINEAR_V1 uses 224x224 (linear probing weights)
+  IMAGENET1K_SWAG_E2E_V1    uses 518x518 (full fine-tuning, higher accuracy)
+
+Classifier head to replace
+--------------------------
+  model.heads.head = nn.Linear(1280, NUM_CLASSES)
+  in_features = 1280  (embed_dim)

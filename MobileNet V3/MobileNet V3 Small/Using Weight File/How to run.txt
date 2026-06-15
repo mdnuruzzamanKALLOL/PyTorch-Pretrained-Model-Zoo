@@ -1,0 +1,20 @@
+How to Run — MobileNet V3 Small Using Weight File
+=================================================
+
+1. load_pretrained.py
+   Loads ImageNet-pretrained MobileNet V3 Small; replaces classifier[3].
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes backbone; trains only classifier[3].
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Dual LR: backbone=1e-5, classifier[3]=1e-3 (AdamW + CosineAnnealing).
+   python fine_tuning.py
+
+Notes:
+  - Pretrained weights download automatically.
+  - Classifier structure: Sequential([Linear(576,1024), HardSwish, Dropout, Linear(1024, classes)]).
+    Replace classifier[3] (the last Linear).
+  - in_features = 1024.

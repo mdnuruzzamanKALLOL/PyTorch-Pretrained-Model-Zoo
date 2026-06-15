@@ -1,0 +1,97 @@
+===================================================
+  DenseNet-121  |  Python Scripts — How to Run
+===================================================
+
+REQUIREMENTS
+------------
+  pip install torch torchvision pillow scikit-learn matplotlib
+
+
+FILE OVERVIEW
+-------------
+  densenet121.py  — Model architecture (from scratch)
+  train.py        — Training script
+  inference.py    — Single-image prediction
+  How to run.txt  — This file
+
+
+STEP 1 — Prepare Your Dataset
+------------------------------
+  Organise images in ImageFolder format:
+
+    data/
+    ├── train/
+    │   ├── class_A/  (*.jpg / *.png)
+    │   └── class_B/
+    └── val/
+        ├── class_A/
+        └── class_B/
+
+  Edit train.py and set:
+    DATA_DIR    = "path/to/your/data"
+    NUM_CLASSES = <number of classes>
+
+
+STEP 2 — Train
+--------------
+  python train.py
+
+  Output:
+    • Live epoch table (loss, accuracy, LR)
+    • densenet121_best.pth  — saved when val_acc improves
+
+  Key hyperparameters (edit in train.py):
+    BATCH_SIZE  = 32
+    EPOCHS      = 30
+    LR          = 1e-3
+    WEIGHT_DECAY= 1e-4
+
+
+STEP 3 — Inference
+------------------
+  Basic (class index output):
+    python inference.py path/to/image.jpg
+
+  With class names JSON:
+    python inference.py path/to/image.jpg class_names.json
+
+  Custom weights + class count:
+    python inference.py path/to/image.jpg class_names.json densenet121_best.pth 10
+
+  class_names.json example:
+    ["cat", "dog", "bird", "fish", "horse",
+     "horse", "rabbit", "snake", "tiger", "wolf"]
+
+
+STEP 4 — Explore the Model
+---------------------------
+  python densenet121.py
+
+  Prints:
+    • Full model architecture
+    • Input/Output shape test (224×224)
+    • Total & trainable parameter count (~7.9 M)
+    • Layer-by-layer parameter table
+
+
+MODEL DETAILS
+-------------
+  Architecture  : DenseNet-121
+  Growth rate   : 32
+  Block config  : (6, 12, 24, 16)
+  Init features : 64
+  Parameters    : ~7.9 M
+  Input size    : 224 × 224 × 3
+  Optimizer     : AdamW  (lr=1e-3, wd=1e-4)
+  Scheduler     : CosineAnnealingLR (T_max=30)
+
+
+NOTES
+-----
+  • GPU is used automatically if CUDA is available.
+  • For CPU-only machines, training will be slower.
+  • Adjust BATCH_SIZE down if you run out of GPU memory.
+  • The model is built entirely from scratch — no torchvision
+    model classes are used.
+
+===================================================

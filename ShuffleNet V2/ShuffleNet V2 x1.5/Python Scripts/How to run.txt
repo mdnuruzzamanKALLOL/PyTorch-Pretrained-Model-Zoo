@@ -1,0 +1,86 @@
+ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=ShuffleNet V2 x1.5 — Python Scripts
+=
+
+Files
+-----
+  shufflenet_v2_x1_5.py   — channel_shuffle + InvertedResidual + ShuffleNetV2
+  train.py      — training loop (Adam + StepLR)
+  inference.py  — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Data Layout
+-----------
+  data/
+    train/<class_name>/image.jpg ...
+    val/<class_name>/image.jpg ...
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves shufflenet_v2_x1_5_best.pth
+  3. python inference.py your_image.jpg
+
+Training config
+---------------
+  Batch size           : 64
+  Epochs               : 20
+  Optimizer            : Adam (lr=0.001)
+  Scheduler            : StepLR (step_size=7, gamma=0.1)
+  Loss                 : CrossEntropyLoss
+  Input size           : 224x224
+  stages_out_channels  : [24, 176, 352, 704, 1024]
+  stages_repeats       : [4, 8, 4]
+  Parameters           : ~3.5M

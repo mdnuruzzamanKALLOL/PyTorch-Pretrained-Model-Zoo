@@ -1,0 +1,79 @@
+===================================================
+  DenseNet-169  |  Using Weight File — How to Run
+===================================================
+
+REQUIREMENTS
+------------
+  pip install torch torchvision pillow
+
+
+FILE OVERVIEW
+-------------
+  load_pretrained.py    — Load ImageNet weights & run smoke test
+  feature_extraction.py — Freeze backbone, train only new head
+  fine_tuning.py        — Unfreeze all layers with dual LR
+  How to run.txt        — This file
+
+
+1) LOAD PRETRAINED (ImageNet inference)
+-----------------------------------------
+  python load_pretrained.py
+
+  What it does:
+    • Downloads DenseNet-169 ImageNet weights via torchvision
+    • Prints parameter count and classifier info
+    • Runs a forward-pass smoke test
+    • Exposes predict_imagenet("image.jpg") helper
+
+  Classifier head: Linear(1664 → 1000)
+
+
+2) FEATURE EXTRACTION  (fast transfer learning)
+-------------------------------------------------
+  python feature_extraction.py
+
+  Strategy:
+    • All backbone layers are FROZEN (requires_grad = False)
+    • Only the new Linear(1664 → NUM_CLASSES) head is trained
+    • Optimizer : Adam(lr=1e-3) on classifier only
+    • Scheduler : StepLR(step_size=5, gamma=0.1)
+    • Epochs    : 15
+
+  Before running, edit feature_extraction.py:
+    DATA_DIR    = "path/to/your/data"
+    NUM_CLASSES = <number of classes>
+
+  Dataset layout (ImageFolder):
+    data/
+    ├── train/ ── class_A/ ── *.jpg
+    └── val/   ── class_A/ ── *.jpg
+
+  Output: densenet169_feature_extract.pth
+
+
+3) FINE-TUNING  (best accuracy)
+---------------------------------
+  python fine_tuning.py
+
+  Strategy:
+    • All layers unfrozen
+    • Dual learning rate via AdamW:
+        - Backbone      : lr = 1e-5
+        - Classifier    : lr = 1e-3
+    • Scheduler : CosineAnnealingLR (T_max=20)
+    • Epochs    : 20
+
+  Before running, edit fine_tuning.py:
+    DATA_DIR    = "path/to/your/data"
+    NUM_CLASSES = <number of classes>
+
+  Output: densenet169_finetuned.pth
+
+
+CLASSIFIER HEAD DETAILS  (DenseNet-169)
+-----------------------------------------
+  Backbone output channels : 1664  (after 4 dense blocks, k=32)
+  New head                  : nn.Linear(1664, NUM_CLASSES)
+  Access in torchvision     : model.classifier
+
+===================================================

@@ -1,0 +1,82 @@
+RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=RegNet-Y-8GF — Python Scripts
+=
+
+Files
+-----
+  regnet_y_8gf.py   — SE + XBlock + RegNet + all factory functions
+  train.py      — Adam + StepLR training loop
+  inference.py  — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves regnet_y_8gf_best.pth
+  3. python inference.py your_image.jpg
+
+Config
+------
+  Series        : RegNet Y  (+ Squeeze-and-Excitation, se_ratio=0.25)
+  depths        : [2, 17, 5, 1]
+  widths        : [168, 448, 896, 2016]
+  group_widths  : [56, 56, 56, 56]
+  FC in_features: 2016
+  Parameters    : ~39.4M
+  Batch size    : 16
+  Epochs        : 20
+  Optimizer     : Adam (lr=0.001)
+  Scheduler     : StepLR (step_size=7, gamma=0.1)
+  Input size    : 224x224

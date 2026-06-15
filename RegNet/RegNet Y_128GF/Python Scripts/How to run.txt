@@ -1,0 +1,82 @@
+RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=RegNet-Y-128GF — Python Scripts
+=
+
+Files
+-----
+  regnet_y_128gf.py   — SE + XBlock + RegNet + all factory functions
+  train.py      — Adam + StepLR training loop
+  inference.py  — top-K single-image prediction
+
+Requirements
+------------
+  pip install torch torchvision pillow matplotlib scikit-learn
+
+Steps
+-----
+  1. Set NUM_CLASSES in train.py
+  2. python train.py
+     -> saves regnet_y_128gf_best.pth
+  3. python inference.py your_image.jpg
+
+Config
+------
+  Series        : RegNet Y  (+ Squeeze-and-Excitation, se_ratio=0.25)
+  depths        : [2, 7, 13, 1]
+  widths        : [528, 1056, 2904, 7392]
+  group_widths  : [264, 264, 264, 264]
+  FC in_features: 7392
+  Parameters    : ~644.8M
+  Batch size    : 4
+  Epochs        : 20
+  Optimizer     : Adam (lr=0.001)
+  Scheduler     : StepLR (step_size=7, gamma=0.1)
+  Input size    : 224x224

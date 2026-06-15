@@ -1,0 +1,44 @@
+====================================================
+  ConvNeXt-Large — Python Scripts: How to Run
+====================================================
+Config: depths=(3,3,27,3)  dims=(192,384,768,1536)  ~198M params
+
+REQUIREMENTS
+------------
+    pip install torch torchvision pillow
+
+----------------------------------------------------
+1. convnext_large.py  —  Model + Parameter Count
+----------------------------------------------------
+    python convnext_large.py
+
+Output: architecture, input/output shapes, param count
+
+----------------------------------------------------
+2. train.py  —  Training
+----------------------------------------------------
+Dataset structure:
+    data/train/class_1/ ... data/val/class_1/ ...
+
+Edit config in train.py:
+    NUM_CLASSES = 10
+    BATCH_SIZE  = 8     # reduced — large model
+    EPOCHS      = 10
+    DATA_DIR    = "./data"
+
+Run:
+    python train.py
+
+Saves best model as: convnext_large_best.pth
+
+----------------------------------------------------
+3. inference.py  —  Predict on Image
+----------------------------------------------------
+Requires: convnext_large_best.pth
+
+    python inference.py image.jpg
+    python inference.py image.jpg class_names.json
+
+====================================================
+NOTE: GPU with 8GB+ VRAM recommended for Large model
+====================================================

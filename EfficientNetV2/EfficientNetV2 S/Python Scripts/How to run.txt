@@ -1,0 +1,48 @@
+EfficientNetV2-S — Python Scripts
+==========================================
+
+FOLDER STRUCTURE
+----------------
+  efficientnetv2_s.py   ← model architecture (from scratch)
+  train.py                 ← training script
+  inference.py             ← single-image inference
+  How to run.txt           ← this file
+
+REQUIREMENTS
+------------
+  pip install torch torchvision scikit-learn pillow matplotlib
+
+DATASET FORMAT
+--------------
+  data/
+    train/
+      class_a/  image1.jpg  ...
+      class_b/  ...
+    val/
+      class_a/  ...
+      class_b/  ...
+
+TRAINING
+--------
+  python train.py
+
+  Key settings:
+    NUM_CLASSES = 10         ← change to your number of classes
+    BATCH_SIZE  = 16
+    EPOCHS      = 30
+    LR          = 1e-3
+
+  Saves: efficientnetv2_s_best.pth
+
+INFERENCE
+---------
+  python inference.py <image_path> [class_names.json] [weights.pth] [num_classes]
+
+  Examples:
+    python inference.py photo.jpg
+    python inference.py photo.jpg classes.json efficientnetv2_s_best.pth 10
+
+INPUT RESOLUTION
+----------------
+  EfficientNetV2-S uses 300×300 images.
+  Scripts resize to 332 then crop to 300×300 automatically.

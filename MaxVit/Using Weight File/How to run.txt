@@ -1,0 +1,21 @@
+How to Run — MaxViT Using Weight File
+========================================
+
+1. load_pretrained.py
+   Loads ImageNet-pretrained MaxViT-T; replaces classifier[3].
+   python load_pretrained.py
+
+2. feature_extraction.py
+   Freezes all layers except classifier[3]; trains head only.
+   python feature_extraction.py
+
+3. fine_tuning.py
+   Dual LR: backbone=1e-5, classifier[3]=1e-3 (AdamW + CosineAnnealing).
+   python fine_tuning.py
+
+Notes:
+  - Pretrained weights download automatically on first run (~220 MB).
+  - Classifier structure: [0] AdaptiveAvgPool, [1] Flatten, [2] LayerNorm,
+    [3] Linear (512→1000), [4] Tanh, [5] Linear.
+    Replace classifier[3] for transfer learning.
+  - in_features = 512 for MaxViT-T.
