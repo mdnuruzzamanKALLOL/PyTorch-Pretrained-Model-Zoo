@@ -127,3 +127,12 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
+
+
+---
+
+<div align="center">
+
+![Profile Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FmdnuruzzamanKALLOL%2FPyTorch-Pretrained-Model-Zoo%2Ftree%2Fmaster%2FWide%2520ResNet&count_bg=%23EE4C2C&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Profile%20Views&edge_flat=false)
+
+</div>
