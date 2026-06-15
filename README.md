@@ -259,5 +259,11 @@ python feature_extraction.py
 ---
 
 <div align="center">
+
+![Page Views](https://visitor-badge.laobi.icu/badge?page_id=mdnuruzzamanKALLOL.PyTorch-Pretrained-Model-Zoo&left_color=%23EE4C2C&right_color=%230e75b6&left_text=Page%20Views)
+
+</div>
+
+<div align="center">
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:FF8C00,50:FF6B35,100:EE4C2C&height=120&section=footer&text=Happy%20Training!%20%F0%9F%94%A5&fontSize=24&fontColor=ffffff&animation=fadeIn&fontAlignY=65"/>
 </div>
