@@ -140,6 +140,6 @@ criterion = nn.CrossEntropyLoss()
 
 <div align="center">
 
-![Profile Views](https://komarev.com/ghpvc/?username=mdnuruzzamanKALLOL&label=Profile%20Views&color=EE4C2C&style=flat-square)
+![Page Views](https://visitor-badge.laobi.icu/badge?page_id=mdnuruzzamanKALLOL.PyTorch-Pretrained-Model-Zoo.EfficientNet&left_color=%23EE4C2C&right_color=%230e75b6&left_text=Page%20Views)
 
 </div>
