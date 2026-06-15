@@ -1,60 +1,126 @@
-# MobileNet V2
+# MobileNetV2 — PyTorch / Torchvision Pretrained Model | ImageNet Classification
 
-**Paper:** MobileNetV2: Inverted Residuals and Linear Bottlenecks (Sandler et al., CVPR 2018)
+> **Keywords:** MobileNetV2 PyTorch pretrained 3.4M 71.9% ImageNet mobile CVPR 2018 inverted residual SSDLite edge classification
 
-## Architecture Overview
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Torchvision](https://img.shields.io/badge/torchvision-pretrained-3776AB?style=flat-square)](https://pytorch.org/vision/)
+[![ImageNet](https://img.shields.io/badge/Pretrained-ImageNet-4ecdc4?style=flat-square)](https://www.image-net.org/)
+[![License](https://img.shields.io/badge/License-MIT-success?style=flat-square)](../../LICENSE)
 
-| Component | Details |
-|-----------|---------|
-| Stem | Conv3×3/2(3→32) → BN → ReLU6 |
-| Stage 1 | 1× InvRes, expand=1, out=16, stride=1 |
-| Stage 2 | 2× InvRes, expand=6, out=24, stride=2 |
-| Stage 3 | 3× InvRes, expand=6, out=32, stride=2 |
-| Stage 4 | 4× InvRes, expand=6, out=64, stride=2 |
-| Stage 5 | 3× InvRes, expand=6, out=96, stride=1 |
-| Stage 6 | 3× InvRes, expand=6, out=160, stride=2 |
-| Stage 7 | 1× InvRes, expand=6, out=320, stride=1 |
-| Head | Conv1×1(320→1280) → AvgPool → Dropout → FC |
-| Input Size | 224×224 |
-| Parameters | ~3.4M |
+---
 
-### Key Design: Linear Bottleneck
-The last pointwise conv in each block has no activation (linear bottleneck)
-to prevent destroying information in low-dimensional manifolds.
+## Overview
+
+MobileNetV2 introduces Inverted Residual blocks with Linear Bottlenecks: channel expansion inside each block prevents information loss, while residual connections across narrow bottleneck layers improve gradient flow. With 3.4 M parameters it achieves 71.9% ImageNet top-1 and is the backbone for SSDLite mobile object detection and DeepLab V3+ mobile.
+
+---
+
+## Variants & ImageNet Performance
+
+| Model | Params | Input | Top-1 | Top-5 |
+|-------|:------:|:-----:|:-----:|:-----:|
+| `mobilenet_v2` | 3.4 M | 224² | 71.9% | 90.3% |
+
+---
+
+## Architecture Highlights
+
+- Inverted bottleneck: narrow input → expand (t=6) → depthwise → project back narrow
+- Linear (no ReLU) output of bottleneck preserves low-dimensional manifold
+- Residual connection across bottleneck when stride=1
+- SSDLite and DeepLab V3+ compatible mobile backbone
+
+---
+
+## When to Use MobileNetV2
+
+The default mobile backbone for production apps. Use EfficientNet-B0 when accuracy > 77% is needed at similar hardware budget.
+
+---
+
+## Real-World Use Cases
+
+- Real-time mobile classification and detection on Android/iOS
+- SSDLite object detection for on-device inference
+- Semantic segmentation with DeepLabV3+ for mobile
+- Coral Edge TPU and Jetson Nano deployment via TFLite/ONNX
+
+---
+
+## Folder Structure
+
+```
+MobileNet V2/
+├── NoteBook/                 # Jupyter notebook: architecture walkthrough, training, evaluation
+├── Python Scripts/           # Standalone .py: build from scratch, training loop, inference
+└── Using Weight File/        # Load pretrained weights, feature extraction, fine-tuning
+```
+
+---
 
 ## Quick Start
 
-### From Scratch
-```
-cd "Python Scripts"
-python train.py
-python inference.py your_image.jpg
-```
-
-### Using Pretrained Weights
-```
-cd "Using Weight File"
-python feature_extraction.py
-python fine_tuning.py
+```python
+import torchvision.models as models
+model = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V1)
+model.eval()
 ```
 
-## Training Config
+---
 
-| Setting | Value |
-|---------|-------|
-| Input | 224×224 |
-| Batch Size | 64 |
-| Epochs | 20 |
-| Optimizer | Adam, LR=1e-3 |
-| Scheduler | CosineAnnealingLR |
-
-## Pretrained Weights (torchvision)
+## Transfer Learning
 
 ```python
-from torchvision import models
+import torch
 import torch.nn as nn
+import torchvision.models as models
 
-model = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V1)
-model.classifier[1] = nn.Linear(model.classifier[1].in_features, NUM_CLASSES)
-# in_features = 1280
+NUM_CLASSES = 10  # replace with your class count
+
+# Load pretrained backbone
+model = models.mobilenet_v2(weights="IMAGENET1K_V1")
+
+# Replace the classifier head
+if hasattr(model, "fc"):
+    in_features = model.fc.in_features
+    model.fc = nn.Sequential(
+        nn.Dropout(0.3),
+        nn.Linear(in_features, NUM_CLASSES),
+    )
+elif hasattr(model, "classifier"):
+    in_features = model.classifier[-1].in_features
+    model.classifier[-1] = nn.Linear(in_features, NUM_CLASSES)
+
+# Freeze backbone for initial training
+for param in list(model.parameters())[:-4]:
+    param.requires_grad = False
+
+optimizer = torch.optim.Adam(
+    filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3
+)
+criterion = nn.CrossEntropyLoss()
 ```
+
+---
+
+## Citation
+
+```bibtex
+@inproceedings{sandler2018mobilenetv2,
+  title={{MobileNetV2}: Inverted Residuals and Linear Bottlenecks},
+  author={Sandler, Mark and Howard, Andrew and Zhu, Menglong and Zhmoginov, Andrey and Chen, Liang-Chieh},
+  booktitle={CVPR},
+  pages={4510--4520},
+  year={2018}
+}
+```
+
+**Paper:** MobileNetV2: Inverted Residuals and Linear Bottlenecks
+**Authors:** Mark Sandler, Andrew Howard, Menglong Zhu, Andrey Zhmoginov, Liang-Chieh Chen
+**Venue:** CVPR 2018  **arXiv:** https://arxiv.org/abs/1801.04381
+
+---
+
+<div align="center">
+<sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
+</div>

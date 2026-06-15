@@ -1,58 +1,57 @@
-# EfficientNet
+# EfficientNet (B0–B7) — PyTorch / Torchvision Pretrained Model | ImageNet Classification
 
-![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch)
-![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python)
-![Paper](https://img.shields.io/badge/Paper-ICML%202019-blue)
+> **Keywords:** EfficientNet B0-B7 PyTorch pretrained ImageNet 2019 ICML compound scaling MBConv SE transfer learning classification
 
-PyTorch implementations of **EfficientNet B0–B7** from scratch, plus pretrained-weight workflows.
-
-> Tan, M., & Le, Q. V. (2019). *EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks.* ICML 2019.
-
----
-
-## Architecture Overview
-
-```
-Input (3 × H × W)
-       │
-  ┌────▼────┐
-  │  Stem   │  Conv2d 3×3, stride 2  →  BN → SiLU
-  └────┬────┘
-       │
-  ┌────▼────────────────────────────────────────┐
-  │  MBConv Blocks  (7 stages, stochastic depth) │
-  │                                             │
-  │  Each MBConv block:                         │
-  │  ┌──────────────────────────────────────┐   │
-  │  │ [Expand Conv1×1 → BN → SiLU]         │   │
-  │  │  DWConv k×k → BN → SiLU             │   │
-  │  │  SE: AvgPool → FC → SiLU → FC → σ   │   │
-  │  │  Project Conv1×1 → BN               │   │
-  │  │  + residual (if same shape)          │   │
-  │  └──────────────────────────────────────┘   │
-  └────┬────────────────────────────────────────┘
-       │
-  ┌────▼────┐
-  │  Head   │  Conv1×1 → BN → SiLU → AvgPool → Dropout → Linear
-  └────┬────┘
-       │
-  Output (num_classes)
-```
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Torchvision](https://img.shields.io/badge/torchvision-pretrained-3776AB?style=flat-square)](https://pytorch.org/vision/)
+[![ImageNet](https://img.shields.io/badge/Pretrained-ImageNet-4ecdc4?style=flat-square)](https://www.image-net.org/)
+[![License](https://img.shields.io/badge/License-MIT-success?style=flat-square)](../../LICENSE)
 
 ---
 
-## Model Variants
+## Overview
 
-| Model | Width | Depth | Resolution | Dropout | Params | Batch Size |
-|-------|-------|-------|-----------|---------|--------|------------|
-| B0    | 1.0   | 1.0   | 224×224   | 0.2     | ~5.3M  | 64         |
-| B1    | 1.0   | 1.1   | 240×240   | 0.2     | ~7.8M  | 32         |
-| B2    | 1.1   | 1.2   | 260×260   | 0.3     | ~9.2M  | 32         |
-| B3    | 1.2   | 1.4   | 300×300   | 0.3     | ~12M   | 32         |
-| B4    | 1.4   | 1.8   | 380×380   | 0.4     | ~19M   | 16         |
-| B5    | 1.6   | 2.2   | 456×456   | 0.4     | ~30M   | 16         |
-| B6    | 1.8   | 2.6   | 528×528   | 0.5     | ~43M   | 8          |
-| B7    | 2.0   | 3.1   | 600×600   | 0.5     | ~66M   | 8          |
+EfficientNet B0–B7 applies compound scaling — jointly scaling network depth, width, and input resolution with a fixed ratio — to create a family of models spanning 77.1% (B0) to 84.3% (B7) ImageNet top-1 accuracy. PyTorch torchvision added all eight variants in 2022 with pretrained ImageNet weights.
+
+---
+
+## Variants & ImageNet Performance
+
+| Model | Params | Input | Top-1 | Top-5 |
+|-------|:------:|:-----:|:-----:|:-----:|
+| `efficientnet_b0` | 5.3 M | 224² | 77.7% | 93.6% |
+| `efficientnet_b1` | 7.8 M | 240² | 78.6% | 94.3% |
+| `efficientnet_b2` | 9.1 M | 288² | 80.6% | 95.3% |
+| `efficientnet_b3` | 12 M | 300² | 82.0% | 96.1% |
+| `efficientnet_b4` | 19 M | 380² | 83.4% | 96.6% |
+| `efficientnet_b5` | 30 M | 456² | 83.4% | 96.7% |
+| `efficientnet_b6` | 43 M | 528² | 84.0% | 96.9% |
+| `efficientnet_b7` | 66 M | 600² | 84.1% | 97.0% |
+
+---
+
+## Architecture Highlights
+
+- Compound scaling: depth d, width w, resolution r scaled by φ with fixed ratio
+- MBConv blocks with Squeeze-and-Excitation (SE) attention at ratio 0.25
+- Swish activation (β=1) discovered by automated search
+- NAS baseline (B0) scaled uniformly to create B1–B7
+- B0 is 8.4× smaller and 6.1× faster than ResNet-50 at better accuracy
+
+---
+
+## When to Use EfficientNet (B0–B7)
+
+Use B0 or B1 for edge/mobile. Use B3 as the versatile production sweet spot. For new projects consider EfficientNetV2 variants which train faster at similar accuracy.
+
+---
+
+## Real-World Use Cases
+
+- B0–B2: mobile and edge inference via TorchScript / ONNX export
+- B3–B4: server-side API classification (82–83% accuracy range)
+- B5–B7: research and high-accuracy ensemble systems
+- EfficientDet backbone for object detection pipelines
 
 ---
 
@@ -60,74 +59,57 @@ Input (3 × H × W)
 
 ```
 EfficientNet/
-├── EfficientNet B0/
-│   ├── NoteBook/
-│   │   └── efficientnet_b0.ipynb
-│   ├── Python Scripts/
-│   │   ├── efficientnet_b0.py
-│   │   ├── train.py
-│   │   ├── inference.py
-│   │   └── How to run.txt
-│   └── Using Weight File/
-│       ├── load_pretrained.py
-│       ├── feature_extraction.py
-│       ├── fine_tuning.py
-│       └── How to run.txt
-├── EfficientNet B1/ ... B7/   (same structure)
-└── README.md
+├── NoteBook/                 # Jupyter notebook: architecture walkthrough, training, evaluation
+├── Python Scripts/           # Standalone .py: build from scratch, training loop, inference
+└── Using Weight File/        # Load pretrained weights, feature extraction, fine-tuning
 ```
 
 ---
 
-## Quick Start (From Scratch)
+## Quick Start
+
+```python
+import torchvision.models as models
+
+model = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.IMAGENET1K_V1)
+# Replace b0 with b1..b7 for other variants
+model.eval()
+```
+
+---
+
+## Transfer Learning
 
 ```python
 import torch
-from efficientnet_b0 import efficientnet_b0
-
-model  = efficientnet_b0(num_classes=10)
-dummy  = torch.randn(1, 3, 224, 224)
-output = model(dummy)
-print(output.shape)  # torch.Size([1, 10])
-```
-
----
-
-## Quick Start (Pretrained Weights)
-
-```python
 import torch.nn as nn
-from torchvision import models
+import torchvision.models as models
 
-model = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.IMAGENET1K_V1)
+NUM_CLASSES = 10  # replace with your class count
 
-in_features = model.classifier[1].in_features  # 1280
-model.classifier[1] = nn.Linear(in_features, 10)
+# Load pretrained backbone
+model = models.efficientnet_b0(weights="IMAGENET1K_V1")
+
+# Replace the classifier head
+if hasattr(model, "fc"):
+    in_features = model.fc.in_features
+    model.fc = nn.Sequential(
+        nn.Dropout(0.3),
+        nn.Linear(in_features, NUM_CLASSES),
+    )
+elif hasattr(model, "classifier"):
+    in_features = model.classifier[-1].in_features
+    model.classifier[-1] = nn.Linear(in_features, NUM_CLASSES)
+
+# Freeze backbone for initial training
+for param in list(model.parameters())[:-4]:
+    param.requires_grad = False
+
+optimizer = torch.optim.Adam(
+    filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3
+)
+criterion = nn.CrossEntropyLoss()
 ```
-
----
-
-## Transfer Learning Approaches
-
-| Approach | When to Use | Backbone | Head LR | Backbone LR |
-|----------|------------|---------|---------|------------|
-| Feature Extraction | Small dataset / fast training | Frozen | 1e-3 | — |
-| Fine-Tuning | Larger dataset / best accuracy | Unfrozen | 1e-3 | 1e-5 |
-
----
-
-## Pretrained Classifier Head
-
-| Model | `classifier[1].in_features` |
-|-------|----------------------------|
-| B0    | 1280 |
-| B1    | 1280 |
-| B2    | 1408 |
-| B3    | 1536 |
-| B4    | 1792 |
-| B5    | 2048 |
-| B6    | 2304 |
-| B7    | 2560 |
 
 ---
 
@@ -135,9 +117,20 @@ model.classifier[1] = nn.Linear(in_features, 10)
 
 ```bibtex
 @inproceedings{tan2019efficientnet,
-  title     = {EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks},
-  author    = {Tan, Mingxing and Le, Quoc V},
-  booktitle = {International Conference on Machine Learning (ICML)},
-  year      = {2019}
+  title={{EfficientNet}: Rethinking Model Scaling for Convolutional Neural Networks},
+  author={Tan, Mingxing and Le, Quoc V},
+  booktitle={ICML},
+  pages={6105--6114},
+  year={2019}
 }
 ```
+
+**Paper:** EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks
+**Authors:** Mingxing Tan, Quoc V. Le
+**Venue:** ICML 2019  **arXiv:** https://arxiv.org/abs/1905.11946
+
+---
+
+<div align="center">
+<sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
+</div>

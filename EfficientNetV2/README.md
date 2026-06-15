@@ -1,72 +1,50 @@
-# EfficientNetV2
+# EfficientNetV2 (S / M / L) — PyTorch / Torchvision Pretrained Model | ImageNet Classification
 
-![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch)
-![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python)
-![Paper](https://img.shields.io/badge/Paper-ICML%202021-blue)
+> **Keywords:** EfficientNetV2 S M L PyTorch pretrained ImageNet 2021 ICML Fused-MBConv progressive learning fast training classification
 
-PyTorch implementations of **EfficientNetV2-S/M/L** from scratch, plus pretrained-weight workflows.
-
-> Tan, M., & Le, Q. V. (2021). *EfficientNetV2: Smaller Models and Faster Training.* ICML 2021.
-
----
-
-## Architecture Overview
-
-```
-Input (3 × H × W)
-       │
-  ┌────▼────┐
-  │  Stem   │  Conv2d 3×3, stride 2  →  BN → SiLU
-  └────┬────┘
-       │
-  ┌────▼─────────────────────────────────────────────┐
-  │  Early Stages: Fused-MBConv blocks                │
-  │  ┌────────────────────────────────────────────┐  │
-  │  │ Conv(k×k, expand) → BN → SiLU              │  │
-  │  │ Conv(1×1, project) → BN                    │  │
-  │  │ + residual (if same shape)                  │  │
-  │  └────────────────────────────────────────────┘  │
-  ├──────────────────────────────────────────────────┤
-  │  Later Stages: MBConv blocks (with SE)            │
-  │  ┌────────────────────────────────────────────┐  │
-  │  │ [Expand Conv1×1 → BN → SiLU]              │  │
-  │  │  DWConv k×k → BN → SiLU                   │  │
-  │  │  SE: AvgPool → FC → SiLU → FC → Sigmoid   │  │
-  │  │  Project Conv1×1 → BN                      │  │
-  │  │  + residual (if same shape)                 │  │
-  │  └────────────────────────────────────────────┘  │
-  └────┬─────────────────────────────────────────────┘
-       │
-  ┌────▼────┐
-  │  Head   │  Conv1×1(→1280) → BN → SiLU → AvgPool → Dropout → Linear
-  └────┬────┘
-       │
-  Output (num_classes)
-```
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Torchvision](https://img.shields.io/badge/torchvision-pretrained-3776AB?style=flat-square)](https://pytorch.org/vision/)
+[![ImageNet](https://img.shields.io/badge/Pretrained-ImageNet-4ecdc4?style=flat-square)](https://www.image-net.org/)
+[![License](https://img.shields.io/badge/License-MIT-success?style=flat-square)](../../LICENSE)
 
 ---
 
-## Model Variants
+## Overview
 
-| Model | Stages (F/M) | Resolution | Dropout | Params   | Batch |
-|-------|-------------|-----------|---------|----------|-------|
-| S     | 3F + 3M     | 300×300   | 0.2     | ~21.5M   | 16    |
-| M     | 3F + 4M     | 384×384   | 0.3     | ~54.1M   | 8     |
-| L     | 3F + 4M     | 480×480   | 0.4     | ~118.5M  | 4     |
-
-F = Fused-MBConv  |  M = MBConv with Squeeze-and-Excitation
+EfficientNetV2 redesigns the scaling strategy and adds Fused-MBConv blocks in early stages, training 5–11× faster than EfficientNet-B7 while achieving higher accuracy. PyTorch torchvision provides S/M/L variants pretrained on ImageNet-1K.
 
 ---
 
-## Key Improvements over EfficientNetV1
+## Variants & ImageNet Performance
 
-| Feature | V1 | V2 |
-|---------|----|----|
-| Block type | MBConv only | Fused-MBConv (early) + MBConv (late) |
-| SE in early stages | Yes | No (Fused-MBConv has no SE) |
-| Training | Fixed resolution | Progressive learning (paper) |
-| Speed | Baseline | 5–11× faster training |
-| Scaling | Compound (width/depth) | Pre-defined stage configs |
+| Model | Params | Input | Top-1 | Top-5 |
+|-------|:------:|:-----:|:-----:|:-----:|
+| `efficientnet_v2_s` | 21.5 M | 384² | 84.2% | 96.9% |
+| `efficientnet_v2_m` | 54.1 M | 480² | 85.1% | 97.4% |
+| `efficientnet_v2_l` | 119 M | 480² | 85.8% | 97.8% |
+
+---
+
+## Architecture Highlights
+
+- Fused-MBConv in stages 1–3: 3×3 fused conv instead of expand+depthwise+project
+- Progressive learning: image size and augmentation scale together during training
+- NAS optimized for training speed (seconds/step) not just inference FLOPs
+- V2-S trains 6.8× faster than EfficientNet-B7 at comparable accuracy
+
+---
+
+## When to Use EfficientNetV2 (S / M / L)
+
+Always prefer V2-S/M/L over EfficientNet-B6/B7 in new projects — faster training, better accuracy, modern architecture.
+
+---
+
+## Real-World Use Cases
+
+- High-accuracy server-side classification (84–86% range)
+- Medical imaging and satellite imagery requiring large input resolution
+- EfficientDetV2 backbone for object detection
 
 ---
 
@@ -74,70 +52,57 @@ F = Fused-MBConv  |  M = MBConv with Squeeze-and-Excitation
 
 ```
 EfficientNetV2/
-├── EfficientNetV2 S/
-│   ├── NoteBook/
-│   │   └── efficientnetv2_s.ipynb
-│   ├── Python Scripts/
-│   │   ├── efficientnetv2_s.py
-│   │   ├── train.py
-│   │   ├── inference.py
-│   │   └── How to run.txt
-│   └── Using Weight File/
-│       ├── load_pretrained.py
-│       ├── feature_extraction.py
-│       ├── fine_tuning.py
-│       └── How to run.txt
-├── EfficientNetV2 M/   (same structure)
-├── EfficientNetV2 L/   (same structure)
-└── README.md
+├── NoteBook/                 # Jupyter notebook: architecture walkthrough, training, evaluation
+├── Python Scripts/           # Standalone .py: build from scratch, training loop, inference
+└── Using Weight File/        # Load pretrained weights, feature extraction, fine-tuning
 ```
 
 ---
 
-## Quick Start (From Scratch)
+## Quick Start
+
+```python
+import torchvision.models as models
+
+model = models.efficientnet_v2_s(weights=models.EfficientNet_V2_S_Weights.IMAGENET1K_V1)
+# Replace _s with _m or _l for other variants
+model.eval()
+```
+
+---
+
+## Transfer Learning
 
 ```python
 import torch
-from efficientnetv2_s import efficientnetv2_s
-
-model  = efficientnetv2_s(num_classes=10)
-dummy  = torch.randn(1, 3, 300, 300)
-output = model(dummy)
-print(output.shape)  # torch.Size([1, 10])
-```
-
----
-
-## Quick Start (Pretrained Weights)
-
-```python
 import torch.nn as nn
-from torchvision import models
+import torchvision.models as models
 
-model = models.efficientnet_v2_s(weights=models.EfficientNet_V2_S_Weights.IMAGENET1K_V1)
+NUM_CLASSES = 10  # replace with your class count
 
-in_features = model.classifier[1].in_features  # 1280
-model.classifier[1] = nn.Linear(in_features, 10)
+# Load pretrained backbone
+model = models.efficientnet_v2_s(weights="IMAGENET1K_V1")
+
+# Replace the classifier head
+if hasattr(model, "fc"):
+    in_features = model.fc.in_features
+    model.fc = nn.Sequential(
+        nn.Dropout(0.3),
+        nn.Linear(in_features, NUM_CLASSES),
+    )
+elif hasattr(model, "classifier"):
+    in_features = model.classifier[-1].in_features
+    model.classifier[-1] = nn.Linear(in_features, NUM_CLASSES)
+
+# Freeze backbone for initial training
+for param in list(model.parameters())[:-4]:
+    param.requires_grad = False
+
+optimizer = torch.optim.Adam(
+    filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3
+)
+criterion = nn.CrossEntropyLoss()
 ```
-
----
-
-## Transfer Learning Approaches
-
-| Approach | When to Use | Backbone | Head LR | Backbone LR |
-|----------|------------|---------|---------|------------|
-| Feature Extraction | Small dataset / fast training | Frozen | 1e-3 | — |
-| Fine-Tuning | Larger dataset / best accuracy | Unfrozen | 1e-3 | 1e-5 |
-
----
-
-## Pretrained Classifier Head (all variants)
-
-| Model | `classifier[1].in_features` |
-|-------|----------------------------|
-| S     | 1280 |
-| M     | 1280 |
-| L     | 1280 |
 
 ---
 
@@ -145,9 +110,20 @@ model.classifier[1] = nn.Linear(in_features, 10)
 
 ```bibtex
 @inproceedings{tan2021efficientnetv2,
-  title     = {EfficientNetV2: Smaller Models and Faster Training},
-  author    = {Tan, Mingxing and Le, Quoc V},
-  booktitle = {International Conference on Machine Learning (ICML)},
-  year      = {2021}
+  title={{EfficientNetV2}: Smaller Models and Faster Training},
+  author={Tan, Mingxing and Le, Quoc V},
+  booktitle={ICML},
+  pages={10096--10106},
+  year={2021}
 }
 ```
+
+**Paper:** EfficientNetV2: Smaller Models and Faster Training
+**Authors:** Mingxing Tan, Quoc V. Le
+**Venue:** ICML 2021  **arXiv:** https://arxiv.org/abs/2104.00298
+
+---
+
+<div align="center">
+<sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
+</div>

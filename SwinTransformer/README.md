@@ -1,161 +1,56 @@
-# Swin Transformer — Hierarchical Vision Transformer using Shifted Windows
+# Swin Transformer (T / S / B / V2-T / V2-S / V2-B) — PyTorch / Torchvision Pretrained Model | ImageNet Classification
 
-**Paper (V1):** Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
-**Authors:** Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, Baining Guo
-**Conference:** ICCV 2021 (Best Paper)
+> **Keywords:** Swin Transformer T S B V2 PyTorch pretrained 2021 ICCV shifted window hierarchical ViT ImageNet classification detection segmentation
 
-**Paper (V2):** Swin Transformer V2: Scaling Up Capacity and Resolution
-**Conference:** CVPR 2022
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Torchvision](https://img.shields.io/badge/torchvision-pretrained-3776AB?style=flat-square)](https://pytorch.org/vision/)
+[![ImageNet](https://img.shields.io/badge/Pretrained-ImageNet-4ecdc4?style=flat-square)](https://www.image-net.org/)
+[![License](https://img.shields.io/badge/License-MIT-success?style=flat-square)](../../LICENSE)
 
 ---
 
 ## Overview
 
-Swin Transformer introduces a **hierarchical feature map** (like CNNs) via **Patch Merging** and limits self-attention to **local windows**, making it scale linearly with image size. Key contributions:
-
-- **Shifted Window Attention**: alternates between regular (W-MSA) and shifted (SW-MSA) windows to enable cross-window connections
-- **Hierarchical design**: 4 stages with 4×, 8×, 16×, 32× downsampling — compatible with dense prediction tasks
-- **Relative Position Bias**: adds learned bias table to attention logits for spatial awareness
-
-Swin V2 improvements:
-- **Scaled cosine attention**: replaces dot-product with cosine similarity to stabilize large-model training
-- **Continuous log-spaced position bias (CPB)**: MLP-generated bias from log-spaced relative coordinates, enabling resolution transfer
-- **Post-normalization**: LayerNorm after attention/MLP instead of before
+Swin Transformer introduces hierarchical Vision Transformer features via shifted window self-attention, achieving O(N) complexity and linear-scaled feature maps suitable for dense prediction. PyTorch torchvision provides six variants: Swin-T/S/B and their SwinV2 counterparts with improved training stability at higher resolutions.
 
 ---
 
-## Variants
+## Variants & ImageNet Performance
 
-| Variant    | Version | img  | embed | depths      | heads           | Params | Top-1 | window |
-|------------|---------|------|-------|-------------|-----------------|--------|-------|--------|
-| Swin-T     | V1      | 224  | 96    | [2,2,6,2]   | [3,6,12,24]     | ~28M   | 81.3% | 7      |
-| Swin-S     | V1      | 224  | 96    | [2,2,18,2]  | [3,6,12,24]     | ~50M   | 83.0% | 7      |
-| Swin-B     | V1      | 224  | 128   | [2,2,18,2]  | [4,8,16,32]     | ~88M   | 83.5% | 7      |
-| Swin-V2-T  | V2      | 256  | 96    | [2,2,6,2]   | [3,6,12,24]     | ~28M   | 82.0% | 8      |
-| Swin-V2-S  | V2      | 256  | 96    | [2,2,18,2]  | [3,6,12,24]     | ~50M   | 83.7% | 8      |
-| Swin-V2-B  | V2      | 256  | 128   | [2,2,18,2]  | [4,8,16,32]     | ~88M   | 84.6% | 8      |
-
----
-
-## Architecture Pipeline
-
-```
-Input (3 x H x W)
-    |
-    v
-PatchEmbed: Conv2d(3, C, 4, stride=4) + LayerNorm   -> (B, H/4*W/4, C)
-    |
-    v
-Stage 1: depth[0] x SwinBlock  (W-MSA / SW-MSA)     -> (B, H/4*W/4,   C)
-    |  PatchMerging: 4C -> 2C, halves spatial res
-Stage 2: depth[1] x SwinBlock                        -> (B, H/8*W/8,   2C)
-    |  PatchMerging
-Stage 3: depth[2] x SwinBlock                        -> (B, H/16*W/16, 4C)
-    |  PatchMerging
-Stage 4: depth[3] x SwinBlock (no downsampling)      -> (B, H/32*W/32, 8C)
-    |
-    v
-LayerNorm -> GlobalAvgPool -> Linear(8C, num_classes)
-```
-
-Final feature dim: `8 * embed_dim` = 768 (T/S) or 1024 (B)
+| Model | Params | Input | Top-1 | Top-5 |
+|-------|:------:|:-----:|:-----:|:-----:|
+| `swin_t` | 28 M | 224² | 81.5% | 95.5% |
+| `swin_s` | 50 M | 224² | 83.2% | 96.2% |
+| `swin_b` | 88 M | 224² | 83.6% | 96.5% |
+| `swin_v2_t` | 28 M | 256² | 82.1% | 96.0% |
+| `swin_v2_s` | 50 M | 256² | 83.7% | 96.6% |
+| `swin_v2_b` | 88 M | 256² | 84.1% | 96.9% |
 
 ---
 
-## Shifted Window Attention
+## Architecture Highlights
 
-Each stage alternates between:
-- **W-MSA**: attention within fixed windows (no shift)
-- **SW-MSA**: windows shifted by `(window_size//2, window_size//2)`, with cyclic padding + masking
-
-Masking ensures shifted tokens from different semantic regions do not attend to each other.
-
----
-
-## V1 vs V2 Key Differences
-
-| Aspect | Swin V1 | Swin V2 |
-|--------|---------|---------|
-| Attention | Dot-product + scale | Scaled cosine attention |
-| Position bias | Learned table | Log-spaced CPB via MLP |
-| Normalization | Pre-LN | Post-LN |
-| Input size | 224x224 | 256x256 |
-| Window size | 7 | 8 |
+- Hierarchical patch embedding: 4× patches with 2× merge at each stage (like ResNet stages)
+- Window self-attention: local W×W windows reduce quadratic complexity to linear
+- Shifted windows (SW-MSA): cross-window connections for global context
+- Relative position bias for generalization to different window sizes at inference
+- V2: log-scale continuous relative position bias + cosine attention for high-resolution
 
 ---
 
-## Classifier Head
+## When to Use Swin Transformer (T / S / B / V2-T / V2-S / V2-B)
 
-All variants: replace `model.head`
-
-```python
-model.head = nn.Linear(model.head.in_features, NUM_CLASSES)
-```
-
-| Variant   | in_features |
-|-----------|-------------|
-| Swin-T/S  | 768         |
-| Swin-B    | 1024        |
-| Swin-V2-T/S | 768       |
-| Swin-V2-B | 1024        |
+Use Swin-T/S for most tasks — it matches or beats ResNet-50/101 with better transfer. Use SwinV2 when training at higher resolutions (256²+) or larger scale.
 
 ---
 
-## Training Configuration (From Scratch)
+## Real-World Use Cases
 
-| Setting    | Swin-T/V2-T | Swin-S/V2-S | Swin-B/V2-B |
-|------------|-------------|-------------|-------------|
-| Batch Size | 32          | 16          | 8           |
-| Optimizer  | AdamW (lr=1e-4, wd=0.01) for all      |
-| Scheduler  | CosineAnnealingLR (T_max=20) for all  |
-| Epochs     | 20          | 20          | 20          |
-
----
-
-## Transfer Learning Quick Reference
-
-```python
-from torchvision import models
-import torch.nn as nn
-
-# Swin-T
-model      = models.swin_t(weights=models.Swin_T_Weights.IMAGENET1K_V1)
-model.head = nn.Linear(model.head.in_features, NUM_CLASSES)
-
-# Swin-V2-B
-model      = models.swin_v2_b(weights=models.Swin_V2_B_Weights.IMAGENET1K_V1)
-model.head = nn.Linear(model.head.in_features, NUM_CLASSES)
-```
-
-**Feature Extraction** — freeze backbone, train head only:
-```python
-for param in model.parameters():
-    param.requires_grad = False
-model.head = nn.Linear(model.head.in_features, NUM_CLASSES)
-optimizer  = optim.Adam(model.head.parameters(), lr=1e-3)
-```
-
-**Fine-Tuning** — dual learning rates:
-```python
-optimizer = optim.AdamW([
-    {'params': [p for n, p in model.named_parameters() if 'head' not in n],
-     'lr': 1e-5, 'weight_decay': 0.01},
-    {'params': model.head.parameters(), 'lr': 1e-3},
-])
-```
-
----
-
-## Pretrained Weights (torchvision)
-
-| Variant    | Function              | Weights Enum                      | in_features |
-|------------|-----------------------|-----------------------------------|-------------|
-| Swin-T     | `models.swin_t()`     | `Swin_T_Weights.IMAGENET1K_V1`    | 768         |
-| Swin-S     | `models.swin_s()`     | `Swin_S_Weights.IMAGENET1K_V1`    | 768         |
-| Swin-B     | `models.swin_b()`     | `Swin_B_Weights.IMAGENET1K_V1`    | 1024        |
-| Swin-V2-T  | `models.swin_v2_t()`  | `Swin_V2_T_Weights.IMAGENET1K_V1` | 768         |
-| Swin-V2-S  | `models.swin_v2_s()`  | `Swin_V2_S_Weights.IMAGENET1K_V1` | 768         |
-| Swin-V2-B  | `models.swin_v2_b()`  | `Swin_V2_B_Weights.IMAGENET1K_V1` | 1024        |
+- Object detection (COCO): Swin-T/S/B as Cascade Mask R-CNN backbone
+- Semantic segmentation (ADE20K): Swin + UperNet state-of-the-art
+- Panoptic segmentation and instance segmentation at high mAP
+- Image restoration: Swin architecture used in SwinIR (super-resolution, denoising)
+- SwinV2-B/L for high-resolution fine-tuning tasks (up to 1024²)
 
 ---
 
@@ -163,16 +58,59 @@ optimizer = optim.AdamW([
 
 ```
 SwinTransformer/
-+-- README.md
-+-- Swin_T/
-|   +-- NoteBook/          swin_t.ipynb
-|   +-- Python Scripts/    swin_t.py  train.py  inference.py  How to run.txt
-|   +-- Using Weight File/ load_pretrained.py  feature_extraction.py  fine_tuning.py  How to run.txt
-+-- Swin_S/   (same)
-+-- Swin_B/   (same)
-+-- Swin_V2_T/ (same, V2 arch, 256x256)
-+-- Swin_V2_S/ (same)
-+-- Swin_V2_B/ (same)
+├── NoteBook/                 # Jupyter notebook: architecture walkthrough, training, evaluation
+├── Python Scripts/           # Standalone .py: build from scratch, training loop, inference
+└── Using Weight File/        # Load pretrained weights, feature extraction, fine-tuning
+```
+
+---
+
+## Quick Start
+
+```python
+import torchvision.models as models
+
+# Swin-T
+model = models.swin_t(weights=models.Swin_T_Weights.IMAGENET1K_V1)
+
+# Swin V2-B
+model = models.swin_v2_b(weights=models.Swin_V2_B_Weights.IMAGENET1K_V1)
+model.eval()
+```
+
+---
+
+## Transfer Learning
+
+```python
+import torch
+import torch.nn as nn
+import torchvision.models as models
+
+NUM_CLASSES = 10  # replace with your class count
+
+# Load pretrained backbone
+model = models.swin_t(weights="IMAGENET1K_V1")
+
+# Replace the classifier head
+if hasattr(model, "fc"):
+    in_features = model.fc.in_features
+    model.fc = nn.Sequential(
+        nn.Dropout(0.3),
+        nn.Linear(in_features, NUM_CLASSES),
+    )
+elif hasattr(model, "classifier"):
+    in_features = model.classifier[-1].in_features
+    model.classifier[-1] = nn.Linear(in_features, NUM_CLASSES)
+
+# Freeze backbone for initial training
+for param in list(model.parameters())[:-4]:
+    param.requires_grad = False
+
+optimizer = torch.optim.Adam(
+    filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3
+)
+criterion = nn.CrossEntropyLoss()
 ```
 
 ---
@@ -181,16 +119,20 @@ SwinTransformer/
 
 ```bibtex
 @inproceedings{liu2021swin,
-  title     = {Swin Transformer: Hierarchical Vision Transformer using Shifted Windows},
-  author    = {Liu, Ze and Lin, Yutong and Cao, Yue and Hu, Han and Wei, Yixuan and Zhang, Zheng and Lin, Stephen and Guo, Baining},
-  booktitle = {ICCV},
-  year      = {2021}
-}
-
-@inproceedings{liu2022swinv2,
-  title     = {Swin Transformer V2: Scaling Up Capacity and Resolution},
-  author    = {Liu, Ze and Hu, Han and Lin, Yutong and Yao, Zhuliang and Xie, Zhenda and Wei, Yixuan and Ning, Jia and Cao, Yue and Zhang, Zheng and Dong, Li and others},
-  booktitle = {CVPR},
-  year      = {2022}
+  title={Swin Transformer: Hierarchical Vision Transformer using Shifted Windows},
+  author={Liu, Ze and Lin, Yutong and Cao, Yue and Hu, Han and Wei, Yixuan and Zhang, Zheng and Lin, Stephen and Guo, Baining},
+  booktitle={ICCV},
+  pages={10012--10022},
+  year={2021}
 }
 ```
+
+**Paper:** Swin Transformer: Hierarchical Vision Transformer using Shifted Windows
+**Authors:** Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, Baining Guo
+**Venue:** ICCV 2021  **arXiv:** https://arxiv.org/abs/2103.14030
+
+---
+
+<div align="center">
+<sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
+</div>

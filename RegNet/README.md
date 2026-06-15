@@ -1,114 +1,63 @@
-# RegNet — Designing Network Design Spaces
+# RegNet (Y and X series) — PyTorch / Torchvision Pretrained Model | ImageNet Classification
 
-**Paper:** Designing Network Design Spaces
-**Authors:** Ilija Radosavovic, Raj Prateek Kosaraju, Ross Girshick, Kaiming He, Piotr Dollar
-**Conference:** CVPR 2020
+> **Keywords:** RegNet Y X PyTorch pretrained 2020 CVPR design space FLOPs scalable classification backbone
+
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Torchvision](https://img.shields.io/badge/torchvision-pretrained-3776AB?style=flat-square)](https://pytorch.org/vision/)
+[![ImageNet](https://img.shields.io/badge/Pretrained-ImageNet-4ecdc4?style=flat-square)](https://www.image-net.org/)
+[![License](https://img.shields.io/badge/License-MIT-success?style=flat-square)](../../LICENSE)
 
 ---
 
 ## Overview
 
-RegNet is not a single network — it is a **design space** of networks found by searching over quantized linear parameterizations of block widths. The key finding: the best networks follow a simple regularity — widths grow linearly with stage index, and the group width is constant across all stages.
-
-**Two series:**
-- **RegNet X**: Standard XBlock with group convolution (no attention)
-- **RegNet Y**: RegNet X + **Squeeze-and-Excitation** (SE) blocks (se_ratio=0.25)
+RegNet uses a design space analysis to find a population of good architectures — 'Regular Networks' — parameterized by width, depth, group width, and bottleneck ratio. PyTorch torchvision provides 15 variants across Y (with SE) and X (without SE) series, from RegNetY-400MF (21 M FLOPs) to RegNetY-128GF (644 M parameters).
 
 ---
 
-## XBlock (building block)
+## Variants & ImageNet Performance
 
-```
-Input
-  |
-  +-- Conv1x1(in -> w) -> BN -> ReLU          (1x1 project)
-      Conv3x3(w -> w, groups=w/gw) -> BN -> ReLU  (group conv)
-      [SE(w, 0.25)  if RegNet Y]              (optional SE)
-      Conv1x1(w -> out) -> BN                 (1x1 expand)
-  +-- shortcut: Identity or Conv1x1/stride BN
-  |
-  ReLU -> output
-```
-
-- `w` = stage width, `gw` = group_width, groups = w / gw
-- `bottleneck_multiplier = 1.0` for all standard configs (no compression)
-
----
-
-## Variants
-
-### RegNet X (se_ratio = 0.0)
-
-| Variant    | depths       | widths               | group_widths         | Params   | Top-1 | in_features |
-|------------|--------------|----------------------|----------------------|----------|-------|-------------|
-| X_400MF    | [1,2,7,12]   | [32,64,160,384]      | [16,16,16,16]        | ~5.6M    | 72.8% | 384         |
-| X_800MF    | [1,3,7,5]    | [64,128,288,672]     | [16,16,16,16]        | ~7.3M    | 75.2% | 672         |
-| X_1.6GF    | [2,4,10,2]   | [72,168,408,912]     | [24,24,24,24]        | ~9.2M    | 77.0% | 912         |
-| X_3.2GF    | [2,6,15,2]   | [96,192,432,1008]    | [48,48,48,48]        | ~15.3M   | 78.4% | 1008        |
-| X_8GF      | [2,5,15,1]   | [80,240,720,1920]    | [120,120,120,120]    | ~39.6M   | 79.3% | 1920        |
-| X_16GF     | [2,6,13,1]   | [256,512,896,2048]   | [128,128,128,128]    | ~54.3M   | 80.1% | 2048        |
-| X_32GF     | [2,7,13,1]   | [336,672,1344,2520]  | [168,168,168,168]    | ~107.8M  | 80.6% | 2520        |
-
-### RegNet Y (se_ratio = 0.25)
-
-| Variant    | depths       | widths               | group_widths         | Params   | Top-1 | in_features |
-|------------|--------------|----------------------|----------------------|----------|-------|-------------|
-| Y_400MF    | [1,3,6,6]    | [48,104,208,440]     | [8,8,8,8]            | ~4.3M    | 74.0% | 440         |
-| Y_800MF    | [1,3,8,2]    | [64,128,320,768]     | [16,16,16,16]        | ~6.4M    | 76.4% | 768         |
-| Y_1.6GF    | [2,6,17,2]   | [48,120,336,888]     | [24,24,24,24]        | ~11.2M   | 77.9% | 888         |
-| Y_3.2GF    | [2,5,13,1]   | [72,216,576,1512]    | [24,24,24,24]        | ~19.4M   | 78.9% | 1512        |
-| Y_8GF      | [2,17,5,1]   | [168,448,896,2016]   | [56,56,56,56]        | ~39.4M   | 81.7% | 2016        |
-| Y_16GF     | [2,4,11,1]   | [224,448,1232,3024]  | [112,112,112,112]    | ~83.6M   | 82.0% | 3024        |
-| Y_32GF     | [2,5,12,1]   | [232,696,1392,3712]  | [232,232,232,232]    | ~145.0M  | 82.2% | 3712        |
-| Y_128GF    | [2,7,13,1]   | [528,1056,2904,7392] | [264,264,264,264]    | ~644.8M  | 83.4% | 7392        |
-
-Y_128GF uses `IMAGENET1K_SWAG_LINEAR_V1` weights (224x224 compatible).
+| Model | Params | Input | Top-1 | Top-5 |
+|-------|:------:|:-----:|:-----:|:-----:|
+| `regnet_y_400mf` | 4 M | 224² | 74.0% | 91.6% |
+| `regnet_y_800mf` | 6.4 M | 224² | 76.4% | 93.0% |
+| `regnet_y_1_6gf` | 11.2 M | 224² | 77.9% | 93.7% |
+| `regnet_y_3_2gf` | 19.4 M | 224² | 78.9% | 94.4% |
+| `regnet_y_8gf` | 39.4 M | 224² | 80.0% | 95.0% |
+| `regnet_y_16gf` | 83.6 M | 224² | 80.4% | 95.2% |
+| `regnet_y_32gf` | 145.0 M | 224² | 80.9% | 95.2% |
+| `regnet_x_400mf` | 5.5 M | 224² | 72.8% | 90.9% |
+| `regnet_x_800mf` | 7.3 M | 224² | 75.2% | 92.3% |
+| `regnet_x_1_6gf` | 9.2 M | 224² | 77.0% | 93.4% |
+| `regnet_x_3_2gf` | 15.3 M | 224² | 78.4% | 94.0% |
+| `regnet_x_8gf` | 39.6 M | 224² | 79.3% | 94.6% |
+| `regnet_x_16gf` | 54.3 M | 224² | 80.1% | 94.9% |
+| `regnet_x_32gf` | 107.8 M | 224² | 80.6% | 95.0% |
 
 ---
 
-## Architecture Pipeline
+## Architecture Highlights
 
-```
-Input (3x224x224)
-    |
-Stem: Conv3x3/2 (3->32) -> BN -> ReLU          [32 x 112x112]
-    |
-Stage 1: depth[0] XBlocks, stride-2 first      [w1 x 56x56]
-Stage 2: depth[1] XBlocks, stride-2 first      [w2 x 28x28]
-Stage 3: depth[2] XBlocks, stride-2 first      [w3 x 14x14]
-Stage 4: depth[3] XBlocks, stride-2 first      [w4 x  7x 7]
-    |
-AdaptiveAvgPool(1,1) -> Flatten -> FC(w4 -> classes)
-```
+- Design space analysis: study populations of networks rather than single architectures
+- Parameterized by {depth, initial width, slope, quantization, bottleneck ratio, group width}
+- Y series adds SE blocks to X series for additional accuracy
+- Smooth FLOPs scaling from 400 MF to 128 GF across the family
+- Strong linear scaling relationship between FLOPs and accuracy
 
 ---
 
-## Training Configuration
+## When to Use RegNet (Y and X series)
 
-| Setting    | MF variants | 1.6-3.2GF | 8-16GF | 32GF+ |
-|------------|-------------|-----------|--------|-------|
-| Batch Size | 64          | 32        | 16     | 8 (Y_128GF: 4) |
-| Optimizer  | Adam (lr=1e-3) for all                        |
-| Scheduler  | StepLR (step_size=7, gamma=0.1) for all       |
-| Epochs     | 20 (all)                                      |
+Use RegNet when you need a well-studied FLOPs-parameterized model family. RegNetY variants (with SE) consistently outperform X variants at the same FLOPs.
 
 ---
 
-## Transfer Learning
+## Real-World Use Cases
 
-```python
-from torchvision import models
-import torch.nn as nn
-
-model    = models.regnet_x_1_6gf(weights=models.RegNet_X_1_6GF_Weights.IMAGENET1K_V1)
-model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
-
-# Y_128GF — SWAG weights
-model    = models.regnet_y_128gf(weights=models.RegNet_Y_128GF_Weights.IMAGENET1K_SWAG_LINEAR_V1)
-model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
-```
-
-Replace `model.fc` for all variants. `in_features = widths[-1]` of each config.
+- FLOPs-constrained deployment at various efficiency points
+- Neural architecture search baselines and design space analysis research
+- Scalable backbone for object detection (Detectron2 compatible)
+- Research on network design principles and compute-accuracy trade-offs
 
 ---
 
@@ -116,22 +65,59 @@ Replace `model.fc` for all variants. `in_features = widths[-1]` of each config.
 
 ```
 RegNet/
-+-- README.md
-+-- RegNet X_400MF/   NoteBook/  Python Scripts/  Using Weight File/
-+-- RegNet X_800MF/   ...
-+-- RegNet X_1.6GF/   ...
-+-- RegNet X_3.2GF/   ...
-+-- RegNet X_8GF/     ...
-+-- RegNet X_16GF/    ...
-+-- RegNet X_32GF/    ...
-+-- RegNet Y_400MF/   ...
-+-- RegNet Y_800MF/   ...
-+-- RegNet Y_1.6GF/   ...
-+-- RegNet Y_3.2GF/   ...
-+-- RegNet Y_8GF/     ...
-+-- RegNet Y_16GF/    ...
-+-- RegNet Y_32GF/    ...
-+-- RegNet Y_128GF/   ...
+├── NoteBook/                 # Jupyter notebook: architecture walkthrough, training, evaluation
+├── Python Scripts/           # Standalone .py: build from scratch, training loop, inference
+└── Using Weight File/        # Load pretrained weights, feature extraction, fine-tuning
+```
+
+---
+
+## Quick Start
+
+```python
+import torchvision.models as models
+
+# RegNetY-400MF (smallest Y variant)
+model = models.regnet_y_400mf(weights=models.RegNet_Y_400MF_Weights.IMAGENET1K_V1)
+
+# RegNetY-8GF (80% top-1)
+model = models.regnet_y_8gf(weights=models.RegNet_Y_8GF_Weights.IMAGENET1K_V1)
+model.eval()
+```
+
+---
+
+## Transfer Learning
+
+```python
+import torch
+import torch.nn as nn
+import torchvision.models as models
+
+NUM_CLASSES = 10  # replace with your class count
+
+# Load pretrained backbone
+model = models.regnet_y_400mf(weights="IMAGENET1K_V1")
+
+# Replace the classifier head
+if hasattr(model, "fc"):
+    in_features = model.fc.in_features
+    model.fc = nn.Sequential(
+        nn.Dropout(0.3),
+        nn.Linear(in_features, NUM_CLASSES),
+    )
+elif hasattr(model, "classifier"):
+    in_features = model.classifier[-1].in_features
+    model.classifier[-1] = nn.Linear(in_features, NUM_CLASSES)
+
+# Freeze backbone for initial training
+for param in list(model.parameters())[:-4]:
+    param.requires_grad = False
+
+optimizer = torch.optim.Adam(
+    filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3
+)
+criterion = nn.CrossEntropyLoss()
 ```
 
 ---
@@ -140,9 +126,20 @@ RegNet/
 
 ```bibtex
 @inproceedings{radosavovic2020designing,
-  title     = {Designing Network Design Spaces},
-  author    = {Radosavovic, Ilija and Kosaraju, Raj Prateek and Girshick, Ross and He, Kaiming and Dollar, Piotr},
-  booktitle = {CVPR},
-  year      = {2020}
+  title={Designing Network Design Spaces},
+  author={Radosavovic, Ilija and Kosaraju, Raj Prateek and Girshick, Ross and He, Kaiming and Doll\'ar, Piotr},
+  booktitle={CVPR},
+  pages={10428--10436},
+  year={2020}
 }
 ```
+
+**Paper:** Designing Network Design Spaces
+**Authors:** Ilija Radosavovic, Raj Prateek Kosaraju, Ross Girshick, Kaiming He, Piotr Dollár
+**Venue:** CVPR 2020  **arXiv:** https://arxiv.org/abs/2003.13678
+
+---
+
+<div align="center">
+<sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
+</div>
