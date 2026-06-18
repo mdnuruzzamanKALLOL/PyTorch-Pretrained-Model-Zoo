@@ -15,9 +15,9 @@ The VGG family uses exclusively 3×3 convolutional filters in networks from 11 t
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

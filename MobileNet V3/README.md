@@ -15,9 +15,9 @@ MobileNetV3 combines NAS architecture search with NetAdapt to co-optimize accura
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

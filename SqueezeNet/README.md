@@ -15,9 +15,9 @@ SqueezeNet achieves AlexNet-level accuracy (57.5% top-1) with 50× fewer paramet
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

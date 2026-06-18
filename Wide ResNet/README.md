@@ -15,9 +15,9 @@ Wide ResNets increase the width (channel multiplier ×2) of ResNet bottleneck bl
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

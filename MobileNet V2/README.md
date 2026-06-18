@@ -15,9 +15,9 @@ MobileNetV2 introduces Inverted Residual blocks with Linear Bottlenecks: channel
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

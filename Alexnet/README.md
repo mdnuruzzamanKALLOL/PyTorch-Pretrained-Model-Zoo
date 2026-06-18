@@ -15,9 +15,9 @@ AlexNet sparked the modern deep learning era by winning ILSVRC 2012 with a 10.9%
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

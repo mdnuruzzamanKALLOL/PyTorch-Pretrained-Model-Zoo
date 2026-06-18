@@ -15,9 +15,9 @@ ShuffleNet V2 proposes four practical efficiency guidelines that optimize actual
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

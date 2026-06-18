@@ -15,9 +15,9 @@ EfficientNetV2 redesigns the scaling strategy and adds Fused-MBConv blocks in ea
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

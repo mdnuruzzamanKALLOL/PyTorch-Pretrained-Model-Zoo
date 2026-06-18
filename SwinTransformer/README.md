@@ -15,9 +15,9 @@ Swin Transformer introduces hierarchical Vision Transformer features via shifted
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

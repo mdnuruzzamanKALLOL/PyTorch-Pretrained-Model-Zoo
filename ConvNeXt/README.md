@@ -15,9 +15,9 @@ The ConvNeXt family modernizes ResNet with design ideas from Vision Transformers
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

@@ -15,9 +15,9 @@ MaxViT (Multi-Axis Vision Transformer) interleaves local window attention and gl
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

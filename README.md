@@ -32,11 +32,10 @@ Every model folder contains **three ready-to-run resources**:
 
 ---
 
-## Model Table
+<h2 align="center">Model Table</h2>
+<div align="center">
 
 ### AlexNet
-
-<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -44,9 +43,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### ConvNeXt Family
-
 <div align="center">
+
+### ConvNeXt Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -57,9 +56,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### DenseNet Family
-
 <div align="center">
+
+### DenseNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -70,9 +69,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### EfficientNet Family
-
 <div align="center">
+
+### EfficientNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -87,9 +86,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### EfficientNetV2 Family
-
 <div align="center">
+
+### EfficientNetV2 Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -99,9 +98,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### GoogLeNet
-
 <div align="center">
+
+### GoogLeNet
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -109,9 +108,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### Inception V3
-
 <div align="center">
+
+### Inception V3
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -119,9 +118,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### MaxViT
-
 <div align="center">
+
+### MaxViT
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -129,9 +128,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### MNASNet Family
-
 <div align="center">
+
+### MNASNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -142,9 +141,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### MobileNet Family
-
 <div align="center">
+
+### MobileNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -154,9 +153,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### RegNet Family
-
 <div align="center">
+
+### RegNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -178,9 +177,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### ResNet Family
-
 <div align="center">
+
+### ResNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -192,9 +191,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### ResNeXt Family
-
 <div align="center">
+
+### ResNeXt Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -204,9 +203,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### ShuffleNet V2 Family
-
 <div align="center">
+
+### ShuffleNet V2 Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -217,9 +216,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### SqueezeNet Family
-
 <div align="center">
+
+### SqueezeNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -228,9 +227,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### Swin Transformer Family
-
 <div align="center">
+
+### Swin Transformer Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -243,9 +242,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### VGG Family
-
 <div align="center">
+
+### VGG Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -260,9 +259,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### Vision Transformer Family
-
 <div align="center">
+
+### Vision Transformer Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -274,9 +273,9 @@ Every model folder contains **three ready-to-run resources**:
 
 </div>
 
-### Wide ResNet Family
-
 <div align="center">
+
+### Wide ResNet Family
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -312,9 +311,9 @@ python feature_extraction.py
 
 ---
 
-## Families at a Glance
-
 <div align="center">
+
+## Families at a Glance
 
 | Family | Models | Best Use |
 |--------|:------:|----------|

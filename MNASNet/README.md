@@ -15,9 +15,9 @@ MNASNet applies multi-objective NAS to optimize for both ImageNet accuracy and r
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|

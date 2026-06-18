@@ -15,9 +15,9 @@ GoogLeNet introduced the Inception module — parallel branches with 1×1, 3×3,
 
 ---
 
-## Variants & ImageNet Performance
-
 <div align="center">
+
+## Variants & ImageNet Performance
 
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
