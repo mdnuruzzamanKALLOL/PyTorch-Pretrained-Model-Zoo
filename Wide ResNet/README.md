@@ -17,10 +17,14 @@ Wide ResNets increase the width (channel multiplier ×2) of ResNet bottleneck bl
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `wide_resnet50_2` | 68.9 M | 224² | 81.6% | 95.8% |
 | `wide_resnet101_2` | 126.9 M | 224² | 82.5% | 96.2% |
+
+</div>
 
 ---
 
@@ -127,7 +131,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

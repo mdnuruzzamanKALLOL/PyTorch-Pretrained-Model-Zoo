@@ -17,6 +17,8 @@ RegNet uses a design space analysis to find a population of good architectures �
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `regnet_y_400mf` | 4 M | 224² | 74.0% | 91.6% |
@@ -33,6 +35,8 @@ RegNet uses a design space analysis to find a population of good architectures �
 | `regnet_x_8gf` | 39.6 M | 224² | 79.3% | 94.6% |
 | `regnet_x_16gf` | 54.3 M | 224² | 80.1% | 94.9% |
 | `regnet_x_32gf` | 107.8 M | 224² | 80.6% | 95.0% |
+
+</div>
 
 ---
 
@@ -143,7 +147,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

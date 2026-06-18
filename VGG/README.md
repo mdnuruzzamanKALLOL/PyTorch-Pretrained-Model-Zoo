@@ -17,6 +17,8 @@ The VGG family uses exclusively 3×3 convolutional filters in networks from 11 t
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `vgg11` | 132.9 M | 224² | 69.0% | 88.6% |
@@ -27,6 +29,8 @@ The VGG family uses exclusively 3×3 convolutional filters in networks from 11 t
 | `vgg16_bn` | 138.4 M | 224² | 73.4% | 91.5% |
 | `vgg19` | 143.7 M | 224² | 72.4% | 90.9% |
 | `vgg19_bn` | 143.7 M | 224² | 74.2% | 91.8% |
+
+</div>
 
 ---
 
@@ -136,7 +140,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

@@ -17,9 +17,13 @@ MobileNetV2 introduces Inverted Residual blocks with Linear Bottlenecks: channel
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `mobilenet_v2` | 3.4 M | 224² | 71.9% | 90.3% |
+
+</div>
 
 ---
 
@@ -124,7 +128,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

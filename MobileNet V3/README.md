@@ -17,10 +17,14 @@ MobileNetV3 combines NAS architecture search with NetAdapt to co-optimize accura
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `mobilenet_v3_large` | 5.4 M | 224² | 75.3% | 92.6% |
 | `mobilenet_v3_small` | 2.5 M | 224² | 67.7% | 87.4% |
+
+</div>
 
 ---
 
@@ -126,7 +130,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

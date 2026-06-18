@@ -17,12 +17,16 @@ ShuffleNet V2 proposes four practical efficiency guidelines that optimize actual
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `shufflenet_v2_x0_5` | 1.4 M | 224² | 60.6% | 81.7% |
 | `shufflenet_v2_x1_0` | 2.3 M | 224² | 69.4% | 88.3% |
 | `shufflenet_v2_x1_5` | 3.5 M | 224² | 72.6% | 90.6% |
 | `shufflenet_v2_x2_0` | 7.4 M | 224² | 74.6% | 92.0% |
+
+</div>
 
 ---
 
@@ -128,7 +132,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

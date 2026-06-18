@@ -17,12 +17,16 @@ The ConvNeXt family modernizes ResNet with design ideas from Vision Transformers
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `convnext_tiny` | 28 M | 224² | 82.5% | 96.1% |
 | `convnext_small` | 50 M | 224² | 83.6% | 96.6% |
 | `convnext_base` | 89 M | 224² | 84.1% | 96.8% |
 | `convnext_large` | 198 M | 224² | 84.4% | 96.9% |
+
+</div>
 
 ---
 
@@ -139,7 +143,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

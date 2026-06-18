@@ -17,6 +17,8 @@ Swin Transformer introduces hierarchical Vision Transformer features via shifted
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `swin_t` | 28 M | 224² | 81.5% | 95.5% |
@@ -25,6 +27,8 @@ Swin Transformer introduces hierarchical Vision Transformer features via shifted
 | `swin_v2_t` | 28 M | 256² | 82.1% | 96.0% |
 | `swin_v2_s` | 50 M | 256² | 83.7% | 96.6% |
 | `swin_v2_b` | 88 M | 256² | 84.1% | 96.9% |
+
+</div>
 
 ---
 
@@ -136,7 +140,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

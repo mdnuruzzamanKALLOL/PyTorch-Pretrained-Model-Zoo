@@ -17,9 +17,13 @@ GoogLeNet introduced the Inception module — parallel branches with 1×1, 3×3,
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `googlenet` | 6.6 M | 224² | 69.8% | 89.5% |
+
+</div>
 
 ---
 
@@ -123,7 +127,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

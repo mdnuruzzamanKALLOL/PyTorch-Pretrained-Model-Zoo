@@ -17,12 +17,16 @@ DenseNet connects each layer to every subsequent layer, enabling maximum feature
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `densenet121` | 8 M | 224² | 74.4% | 91.9% |
 | `densenet161` | 29 M | 224² | 77.1% | 93.6% |
 | `densenet169` | 14 M | 224² | 75.6% | 92.8% |
 | `densenet201` | 20 M | 224² | 76.9% | 93.5% |
+
+</div>
 
 ---
 
@@ -130,7 +134,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

@@ -17,11 +17,15 @@ EfficientNetV2 redesigns the scaling strategy and adds Fused-MBConv blocks in ea
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `efficientnet_v2_s` | 21.5 M | 384² | 84.2% | 96.9% |
 | `efficientnet_v2_m` | 54.1 M | 480² | 85.1% | 97.4% |
 | `efficientnet_v2_l` | 119 M | 480² | 85.8% | 97.8% |
+
+</div>
 
 ---
 
@@ -127,7 +131,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

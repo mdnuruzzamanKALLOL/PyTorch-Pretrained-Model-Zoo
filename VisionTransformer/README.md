@@ -17,6 +17,8 @@ Vision Transformer (ViT) applies pure Transformer encoder to non-overlapping ima
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `vit_b_16` | 86.6 M | 224² | 81.1% | 95.3% |
@@ -24,6 +26,8 @@ Vision Transformer (ViT) applies pure Transformer encoder to non-overlapping ima
 | `vit_l_16` | 307.4 M | 224² | 79.7% | 94.6% |
 | `vit_l_32` | 306.5 M | 224² | 76.9% | 93.1% |
 | `vit_h_14` | 633.5 M | 518² | 88.6% | 98.7% |
+
+</div>
 
 ---
 
@@ -134,7 +138,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

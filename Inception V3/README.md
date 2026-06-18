@@ -17,9 +17,13 @@ Inception V3 modernizes GoogLeNet with factorized convolutions (n×n → 1×n + 
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `inception_v3` | 27.2 M | 299² | 77.3% | 93.5% |
+
+</div>
 
 ---
 
@@ -124,7 +128,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

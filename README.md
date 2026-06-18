@@ -19,6 +19,8 @@
 
 Every model folder contains **three ready-to-run resources**:
 
+<div align="center">
+
 | Asset | Description |
 |-------|-------------|
 | `NoteBook/` | Interactive Jupyter notebook — architecture walkthrough, training & evaluation |
@@ -26,17 +28,25 @@ Every model folder contains **three ready-to-run resources**:
 | `Using Weight File/` | Scripts to load ImageNet weights, feature-extract (frozen) and fine-tune (progressive unfreeze) |
 | `README.md` | Architecture details, layer configs, key specs and references |
 
+</div>
+
 ---
 
 ## Model Table
 
 ### AlexNet
 
+<div align="center">
+
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
 | [AlexNet](Alexnet/) | 61 M | 224² | [📓](Alexnet/NoteBook/) | [🐍](Alexnet/Python%20Scripts/) | [⚖️](Alexnet/Using%20Weight%20File/) |
 
+</div>
+
 ### ConvNeXt Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -45,7 +55,11 @@ Every model folder contains **three ready-to-run resources**:
 | [ConvNeXt Base](ConvNeXt/ConvNeXt%20Base/) | 89 M | 224² | [📓](ConvNeXt/ConvNeXt%20Base/NoteBook/) | [🐍](ConvNeXt/ConvNeXt%20Base/Python%20Scripts/) | [⚖️](ConvNeXt/ConvNeXt%20Base/Using%20Weight%20File/) |
 | [ConvNeXt Large](ConvNeXt/ConvNeXt%20LArge/) | 198 M | 224² | [📓](ConvNeXt/ConvNeXt%20LArge/NoteBook/) | [🐍](ConvNeXt/ConvNeXt%20LArge/Python%20Scripts/) | [⚖️](ConvNeXt/ConvNeXt%20LArge/Using%20Weight%20File/) |
 
+</div>
+
 ### DenseNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -54,7 +68,11 @@ Every model folder contains **three ready-to-run resources**:
 | [DenseNet 169](DenseNet/DenseNet%20169/) | 14 M | 224² | [📓](DenseNet/DenseNet%20169/NoteBook/) | [🐍](DenseNet/DenseNet%20169/Python%20Scripts/) | [⚖️](DenseNet/DenseNet%20169/Using%20Weight%20File/) |
 | [DenseNet 201](DenseNet/DenseNet%20201/) | 20 M | 224² | [📓](DenseNet/DenseNet%20201/NoteBook/) | [🐍](DenseNet/DenseNet%20201/Python%20Scripts/) | [⚖️](DenseNet/DenseNet%20201/Using%20Weight%20File/) |
 
+</div>
+
 ### EfficientNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -67,7 +85,11 @@ Every model folder contains **three ready-to-run resources**:
 | [EfficientNet B6](EfficientNet/EfficientNet%20B6/) | 43 M | 528² | [📓](EfficientNet/EfficientNet%20B6/NoteBook/) | [🐍](EfficientNet/EfficientNet%20B6/Python%20Scripts/) | [⚖️](EfficientNet/EfficientNet%20B6/Using%20Weight%20File/) |
 | [EfficientNet B7](EfficientNet/EfficientNet%20B7/) | 66 M | 600² | [📓](EfficientNet/EfficientNet%20B7/NoteBook/) | [🐍](EfficientNet/EfficientNet%20B7/Python%20Scripts/) | [⚖️](EfficientNet/EfficientNet%20B7/Using%20Weight%20File/) |
 
+</div>
+
 ### EfficientNetV2 Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -75,25 +97,41 @@ Every model folder contains **three ready-to-run resources**:
 | [EfficientNetV2 M](EfficientNetV2/EfficientNetV2%20M/) | 54.1 M | 480² | [📓](EfficientNetV2/EfficientNetV2%20M/NoteBook/) | [🐍](EfficientNetV2/EfficientNetV2%20M/Python%20Scripts/) | [⚖️](EfficientNetV2/EfficientNetV2%20M/Using%20Weight%20File/) |
 | [EfficientNetV2 L](EfficientNetV2/EfficientNetV2%20L/) | 119 M | 480² | [📓](EfficientNetV2/EfficientNetV2%20L/NoteBook/) | [🐍](EfficientNetV2/EfficientNetV2%20L/Python%20Scripts/) | [⚖️](EfficientNetV2/EfficientNetV2%20L/Using%20Weight%20File/) |
 
+</div>
+
 ### GoogLeNet
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
 | [GoogLeNet](GoogLeNet/) | 6.6 M | 224² | [📓](GoogLeNet/NoteBook/) | [🐍](GoogLeNet/Python%20Scripts/) | [⚖️](GoogLeNet/Using%20Weight%20File/) |
 
+</div>
+
 ### Inception V3
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
 | [Inception V3](Inception%20V3/) | 27.2 M | 299² | [📓](Inception%20V3/NoteBook/) | [🐍](Inception%20V3/Python%20Scripts/) | [⚖️](Inception%20V3/Using%20Weight%20File/) |
 
+</div>
+
 ### MaxViT
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
 | [MaxViT T](MaxVit/) | 119 M | 224² | [📓](MaxVit/NoteBook/) | [🐍](MaxVit/Python%20Scripts/) | [⚖️](MaxVit/Using%20Weight%20File/) |
 
+</div>
+
 ### MNASNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -102,7 +140,11 @@ Every model folder contains **three ready-to-run resources**:
 | [MNASNet 1.0](MNASNet/MNASNet%201.0/) | 4.4 M | 224² | [📓](MNASNet/MNASNet%201.0/NoteBook/) | [🐍](MNASNet/MNASNet%201.0/Python%20Scripts/) | [⚖️](MNASNet/MNASNet%201.0/Using%20Weight%20File/) |
 | [MNASNet 1.3](MNASNet/MNASNet%201.3/) | 6.3 M | 224² | [📓](MNASNet/MNASNet%201.3/NoteBook/) | [🐍](MNASNet/MNASNet%201.3/Python%20Scripts/) | [⚖️](MNASNet/MNASNet%201.3/Using%20Weight%20File/) |
 
+</div>
+
 ### MobileNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -110,7 +152,11 @@ Every model folder contains **three ready-to-run resources**:
 | [MobileNet V3 Large](MobileNet%20V3/MobileNet%20V3%20Large/) | 5.5 M | 224² | [📓](MobileNet%20V3/MobileNet%20V3%20Large/NoteBook/) | [🐍](MobileNet%20V3/MobileNet%20V3%20Large/Python%20Scripts/) | [⚖️](MobileNet%20V3/MobileNet%20V3%20Large/Using%20Weight%20File/) |
 | [MobileNet V3 Small](MobileNet%20V3/MobileNet%20V3%20Small/) | 2.5 M | 224² | [📓](MobileNet%20V3/MobileNet%20V3%20Small/NoteBook/) | [🐍](MobileNet%20V3/MobileNet%20V3%20Small/Python%20Scripts/) | [⚖️](MobileNet%20V3/MobileNet%20V3%20Small/Using%20Weight%20File/) |
 
+</div>
+
 ### RegNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -130,7 +176,11 @@ Every model folder contains **three ready-to-run resources**:
 | [RegNet Y 32GF](RegNet/RegNet%20Y_32GF/) | 145 M | 224² | [📓](RegNet/RegNet%20Y_32GF/NoteBook/) | [🐍](RegNet/RegNet%20Y_32GF/Python%20Scripts/) | [⚖️](RegNet/RegNet%20Y_32GF/Using%20Weight%20File/) |
 | [RegNet Y 128GF](RegNet/RegNet%20Y_128GF/) | 644.8 M | 224² | [📓](RegNet/RegNet%20Y_128GF/NoteBook/) | [🐍](RegNet/RegNet%20Y_128GF/Python%20Scripts/) | [⚖️](RegNet/RegNet%20Y_128GF/Using%20Weight%20File/) |
 
+</div>
+
 ### ResNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -140,7 +190,11 @@ Every model folder contains **three ready-to-run resources**:
 | [ResNet 101](ResNet/ResNet%20101/) | 44.5 M | 224² | [📓](ResNet/ResNet%20101/NoteBook/) | [🐍](ResNet/ResNet%20101/Python%20Scripts/) | [⚖️](ResNet/ResNet%20101/Using%20Weight%20File/) |
 | [ResNet 152](ResNet/ResNet%20152/) | 60.2 M | 224² | [📓](ResNet/ResNet%20152/NoteBook/) | [🐍](ResNet/ResNet%20152/Python%20Scripts/) | [⚖️](ResNet/ResNet%20152/Using%20Weight%20File/) |
 
+</div>
+
 ### ResNeXt Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -148,7 +202,11 @@ Every model folder contains **three ready-to-run resources**:
 | [ResNeXt 101 32x8D](ResNeXt/ResNeXt%20101_32x8D/) | 88.8 M | 224² | [📓](ResNeXt/ResNeXt%20101_32x8D/NoteBook/) | [🐍](ResNeXt/ResNeXt%20101_32x8D/Python%20Scripts/) | [⚖️](ResNeXt/ResNeXt%20101_32x8D/Using%20Weight%20File/) |
 | [ResNeXt 101 64x4D](ResNeXt/ResNeXt%20101_64x4D/) | 83.5 M | 224² | [📓](ResNeXt/ResNeXt%20101_64x4D/NoteBook/) | [🐍](ResNeXt/ResNeXt%20101_64x4D/Python%20Scripts/) | [⚖️](ResNeXt/ResNeXt%20101_64x4D/Using%20Weight%20File/) |
 
+</div>
+
 ### ShuffleNet V2 Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -157,14 +215,22 @@ Every model folder contains **three ready-to-run resources**:
 | [ShuffleNet V2 x1.5](ShuffleNet%20V2/ShuffleNet%20V2%20x1.5/) | 3.5 M | 224² | [📓](ShuffleNet%20V2/ShuffleNet%20V2%20x1.5/NoteBook/) | [🐍](ShuffleNet%20V2/ShuffleNet%20V2%20x1.5/Python%20Scripts/) | [⚖️](ShuffleNet%20V2/ShuffleNet%20V2%20x1.5/Using%20Weight%20File/) |
 | [ShuffleNet V2 x2.0](ShuffleNet%20V2/ShuffleNet%20V2%20x2.0/) | 7.4 M | 224² | [📓](ShuffleNet%20V2/ShuffleNet%20V2%20x2.0/NoteBook/) | [🐍](ShuffleNet%20V2/ShuffleNet%20V2%20x2.0/Python%20Scripts/) | [⚖️](ShuffleNet%20V2/ShuffleNet%20V2%20x2.0/Using%20Weight%20File/) |
 
+</div>
+
 ### SqueezeNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
 | [SqueezeNet 1.0](SqueezeNet/SqueezeNet%201.0/) | 1.2 M | 224² | [📓](SqueezeNet/SqueezeNet%201.0/NoteBook/) | [🐍](SqueezeNet/SqueezeNet%201.0/Python%20Scripts/) | [⚖️](SqueezeNet/SqueezeNet%201.0/Using%20Weight%20File/) |
 | [SqueezeNet 1.1](SqueezeNet/SqueezeNet%201.1/) | 1.2 M | 224² | [📓](SqueezeNet/SqueezeNet%201.1/NoteBook/) | [🐍](SqueezeNet/SqueezeNet%201.1/Python%20Scripts/) | [⚖️](SqueezeNet/SqueezeNet%201.1/Using%20Weight%20File/) |
 
+</div>
+
 ### Swin Transformer Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -175,7 +241,11 @@ Every model folder contains **three ready-to-run resources**:
 | [Swin-V2-S](SwinTransformer/Swin_V2_S/) | 50 M | 256² | [📓](SwinTransformer/Swin_V2_S/NoteBook/) | [🐍](SwinTransformer/Swin_V2_S/Python%20Scripts/) | [⚖️](SwinTransformer/Swin_V2_S/Using%20Weight%20File/) |
 | [Swin-V2-B](SwinTransformer/Swin_V2_B/) | 88 M | 256² | [📓](SwinTransformer/Swin_V2_B/NoteBook/) | [🐍](SwinTransformer/Swin_V2_B/Python%20Scripts/) | [⚖️](SwinTransformer/Swin_V2_B/Using%20Weight%20File/) |
 
+</div>
+
 ### VGG Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -188,7 +258,11 @@ Every model folder contains **three ready-to-run resources**:
 | [VGG 19](VGG/VGG%2019/) | 144 M | 224² | [📓](VGG/VGG%2019/NoteBook/) | [🐍](VGG/VGG%2019/Python%20Scripts/) | [⚖️](VGG/VGG%2019/Using%20Weight%20File/) |
 | [VGG 19 BN](VGG/VGG%2019_BN/) | 144 M | 224² | [📓](VGG/VGG%2019_BN/NoteBook/) | [🐍](VGG/VGG%2019_BN/Python%20Scripts/) | [⚖️](VGG/VGG%2019_BN/Using%20Weight%20File/) |
 
+</div>
+
 ### Vision Transformer Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
@@ -198,12 +272,18 @@ Every model folder contains **three ready-to-run resources**:
 | [ViT-L/32](VisionTransformer/ViT%20l_32/) | 307 M | 224² | [📓](VisionTransformer/ViT%20l_32/NoteBook/) | [🐍](VisionTransformer/ViT%20l_32/Python%20Scripts/) | [⚖️](VisionTransformer/ViT%20l_32/Using%20Weight%20File/) |
 | [ViT-H/14](VisionTransformer/ViT%20h_14/) | 633 M | 518² | [📓](VisionTransformer/ViT%20h_14/NoteBook/) | [🐍](VisionTransformer/ViT%20h_14/Python%20Scripts/) | [⚖️](VisionTransformer/ViT%20h_14/Using%20Weight%20File/) |
 
+</div>
+
 ### Wide ResNet Family
+
+<div align="center">
 
 | Model | Params | Input | Notebook | Script | Weights |
 |:------|:------:|:-----:|:--------:|:------:|:-------:|
 | [Wide ResNet 50-2](Wide%20ResNet/Wide%20ResNet%2050_2/) | 68.9 M | 224² | [📓](Wide%20ResNet/Wide%20ResNet%2050_2/NoteBook/) | [🐍](Wide%20ResNet/Wide%20ResNet%2050_2/Python%20Scripts/) | [⚖️](Wide%20ResNet/Wide%20ResNet%2050_2/Using%20Weight%20File/) |
 | [Wide ResNet 101-2](Wide%20ResNet/Wide%20ResNet%20101_2/) | 126.9 M | 224² | [📓](Wide%20ResNet/Wide%20ResNet%20101_2/NoteBook/) | [🐍](Wide%20ResNet/Wide%20ResNet%20101_2/Python%20Scripts/) | [⚖️](Wide%20ResNet/Wide%20ResNet%20101_2/Using%20Weight%20File/) |
+
+</div>
 
 ---
 
@@ -234,6 +314,8 @@ python feature_extraction.py
 
 ## Families at a Glance
 
+<div align="center">
+
 | Family | Models | Best Use |
 |--------|:------:|----------|
 | **AlexNet** | 1 | Historical baseline, fast training |
@@ -255,6 +337,8 @@ python feature_extraction.py
 | **VGG** | 8 | Simple baseline, style transfer |
 | **Vision Transformer** | 5 | Pure attention, patch-based |
 | **Wide ResNet** | 2 | Wider channels, improved ResNet |
+
+</div>
 
 ---
 

@@ -17,12 +17,16 @@ MNASNet applies multi-objective NAS to optimize for both ImageNet accuracy and r
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `mnasnet0_5` | 2.2 M | 224² | 67.7% | 87.5% |
 | `mnasnet0_75` | 3.2 M | 224² | 71.2% | 90.5% |
 | `mnasnet1_0` | 3.9 M | 224² | 73.5% | 91.5% |
 | `mnasnet1_3` | 6.3 M | 224² | 76.5% | 93.2% |
+
+</div>
 
 ---
 
@@ -128,7 +132,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

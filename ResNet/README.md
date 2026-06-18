@@ -17,6 +17,8 @@ ResNet introduced identity shortcut connections that allow gradients to flow thr
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `resnet18` | 11.7 M | 224² | 69.8% | 89.1% |
@@ -24,6 +26,8 @@ ResNet introduced identity shortcut connections that allow gradients to flow thr
 | `resnet50` | 25.6 M | 224² | 76.1% | 92.9% |
 | `resnet101` | 44.5 M | 224² | 77.4% | 93.5% |
 | `resnet152` | 60.2 M | 224² | 78.3% | 94.1% |
+
+</div>
 
 ---
 
@@ -131,7 +135,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

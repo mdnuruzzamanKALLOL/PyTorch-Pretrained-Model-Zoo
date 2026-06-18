@@ -17,11 +17,15 @@ ResNeXt introduces grouped convolution ('cardinality') as a new dimension to sca
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `resnext50_32x4d` | 25 M | 224² | 77.6% | 93.7% |
 | `resnext101_32x8d` | 88.8 M | 224² | 79.3% | 94.5% |
 | `resnext101_64x4d` | 83.5 M | 224² | 83.2% | 96.4% |
+
+</div>
 
 ---
 
@@ -127,7 +131,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 

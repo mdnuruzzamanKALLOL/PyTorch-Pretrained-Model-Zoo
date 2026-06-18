@@ -17,6 +17,8 @@ EfficientNet B0–B7 applies compound scaling — jointly scaling network depth,
 
 ## Variants & ImageNet Performance
 
+<div align="center">
+
 | Model | Params | Input | Top-1 | Top-5 |
 |-------|:------:|:-----:|:-----:|:-----:|
 | `efficientnet_b0` | 5.3 M | 224² | 77.7% | 93.6% |
@@ -27,6 +29,8 @@ EfficientNet B0–B7 applies compound scaling — jointly scaling network depth,
 | `efficientnet_b5` | 30 M | 456² | 83.4% | 96.7% |
 | `efficientnet_b6` | 43 M | 528² | 84.0% | 96.9% |
 | `efficientnet_b7` | 66 M | 600² | 84.1% | 97.0% |
+
+</div>
 
 ---
 
@@ -134,7 +138,6 @@ criterion = nn.CrossEntropyLoss()
 <div align="center">
 <sub>Part of the <a href="../README.md">PyTorch Pretrained Model Zoo</a> — 80 models, 20 families, ready-to-run notebooks and scripts</sub>
 </div>
-
 
 ---
 
